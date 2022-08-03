@@ -6,6 +6,7 @@ public class Player : Entity
 {
     // Start is called before the first frame update
     private float speed = 5;
+    public GameObject sprite;
 
 
     [SerializeField]
@@ -40,7 +41,9 @@ public class Player : Entity
         if(to_move != Vector2.zero)
         {
             Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, to_move);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+            Debug.Log(toRotation);
+            sprite.transform.rotation = Quaternion.RotateTowards(sprite.transform.rotation, toRotation, - rotationSpeed * Time.deltaTime);
+            //if()
         }
 
 
