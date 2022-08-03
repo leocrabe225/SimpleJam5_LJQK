@@ -6,7 +6,7 @@ using TMPro;
 public class Game_manager : MonoBehaviour
 {
     //constants
-    float ZONE_1_AMOUNT = 50;
+    int ZONE_1_AMOUNT = 50;
     float ZONE_1_SAFEZONE = 10;
     float ZONE_1_RADIUS = 50;
 
@@ -22,37 +22,28 @@ public class Game_manager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI scraps_text;
 
+    public void spawn_entities_in_circle(GameObject prefab, int amount, Vector2 start, float safezone, float radius, Transform parent) {
+        for (var i=0;i < amount;i++) {
+            var x = Random.Range(0f, 1f);
+            if (Random.Range(0f, 2f) > 1) {
+                x *= -1;
+            }
+            var y = Random.Range(0f, 1f);
+            Debug.Log(Random.Range(0f, 2f));
+            if (Random.Range(0f, 2f) > 1) {
+                y *= -1;
+            }
+            Vector2 temp = new Vector2(x,y);
+            temp = temp.normalized * Random.Range(safezone, radius) + start;
+            Instantiate(prefab, temp, new Quaternion(0,0,0,1), parent);
+        }
+    }
+
     void spawnZone1() {
         //spawn fighter robots
-        for (var i=0;i < ZONE_1_AMOUNT;i++) {
-            var x = Random.Range(0f, 1f);
-            if (Random.Range(0f, 2f) > 1) {
-                x *= -1;
-            }
-            var y = Random.Range(0f, 1f);
-            Debug.Log(Random.Range(0f, 2f));
-            if (Random.Range(0f, 2f) > 1) {
-                y *= -1;
-            }
-            Vector2 temp = new Vector2(x,y);
-            temp = temp.normalized * Random.Range(ZONE_1_SAFEZONE, ZONE_1_RADIUS);
-            Instantiate(fighter_robot_prefab, temp, new Quaternion(0,0,0,1), transform);
-        }
+        spawn_entities_in_circle(fighter_robot_prefab, ZONE_1_AMOUNT, Vector2.zero, ZONE_1_SAFEZONE, ZONE_1_RADIUS, transform);
         //spawn dead machines
-        for (var i=0;i < ZONE_1_AMOUNT;i++) {
-            var x = Random.Range(0f, 1f);
-            if (Random.Range(0f, 2f) > 1) {
-                x *= -1;
-            }
-            var y = Random.Range(0f, 1f);
-            Debug.Log(Random.Range(0f, 2f));
-            if (Random.Range(0f, 2f) > 1) {
-                y *= -1;
-            }
-            Vector2 temp = new Vector2(x,y);
-            temp = temp.normalized * Random.Range(2, ZONE_1_RADIUS);
-            Instantiate(dead_robot_prefab, temp, new Quaternion(0,0,0,1), transform);
-        }
+        spawn_entities_in_circle(dead_robot_prefab, ZONE_1_AMOUNT, Vector2.zero, 2f, ZONE_1_RADIUS, transform);
     }
 
     public void add_scraps(int amount) {
@@ -70,6 +61,10 @@ public class Game_manager : MonoBehaviour
 
     void Update()
     {
-        
+        if (Input.GetKey(KeyCode.Space)) {
+            if (scraps >= 5) {
+                scraps -= 5;
+            }
+        }
     }
 }
