@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dead_robot : MonoBehaviour
+public class Dead_robot : Entity
 {
     void OnTriggerEnter2D(Collider2D col)
     {
