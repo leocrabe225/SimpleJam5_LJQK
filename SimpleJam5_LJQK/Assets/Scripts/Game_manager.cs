@@ -79,7 +79,7 @@ public class Game_manager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space)) {
             if (remove_scraps(5)) {
-                
+                spawn_entities_in_circle(fighter_robot_prefab, 1, player.transform.position, 1, 3, player.transform, true);
             }
         }
     }

@@ -658,6 +658,18 @@ PrefabInstance:
       propertyPath: scraps_text
       value: 
       objectReference: {fileID: 2086607153}
+    - target: {fileID: 2523938719979929492, guid: c343a9360d3092e4b96addfb22d0ce80, type: 3}
+      propertyPath: player_prefab
+      value: 
+      objectReference: {fileID: 3037428600940125618, guid: 6b2a8fd220dac4f468b3a0a2b26b8709, type: 3}
+    - target: {fileID: 2523938719979929492, guid: c343a9360d3092e4b96addfb22d0ce80, type: 3}
+      propertyPath: dead_robot_prefab
+      value: 
+      objectReference: {fileID: 3777673230381507017, guid: f69958e461fd1d240843a56cdd173b73, type: 3}
+    - target: {fileID: 2523938719979929492, guid: c343a9360d3092e4b96addfb22d0ce80, type: 3}
+      propertyPath: fighter_robot_prefab
+      value: 
+      objectReference: {fileID: 5252129155408306735, guid: 48c03906b9a67754786e6b91d3522b53, type: 3}
     - target: {fileID: 2523938719979929493, guid: c343a9360d3092e4b96addfb22d0ce80, type: 3}
       propertyPath: m_RootOrder
       value: 1
