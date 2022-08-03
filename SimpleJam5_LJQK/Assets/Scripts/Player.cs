@@ -30,7 +30,7 @@ public class Player : Entity
         to_move = to_move.normalized * speed * Time.deltaTime;
         transform.Translate(to_move);
         Debug.Log("boite en fer (c'est mieux)");
-        if (transform.position.x > 10.7f) {
+        /*if (transform.position.x > 10.7f) {
             Vector2 temp = new Vector2(-10.7f, transform.position.y);
             transform.position = temp;
         }
@@ -45,6 +45,6 @@ public class Player : Entity
         if (transform.position.y < -5f) {
             Vector2 temp = new Vector2(transform.position.x, 5f);
             transform.position = temp;
-        }
+        }*/
     }
 }
