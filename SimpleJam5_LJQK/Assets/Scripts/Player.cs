@@ -8,7 +8,7 @@ public class Player : Entity
     private float speed = 5;
     void Start()
     {
-        
+        is_ally = true;
     }
 
     // Update is called once per frame
