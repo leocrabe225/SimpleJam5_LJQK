@@ -6,6 +6,13 @@ public class Player : Entity
 {
     // Start is called before the first frame update
     private float speed = 5;
+
+
+    [SerializeField]
+    private float rotationSpeed;
+
+
+
     void Start()
     {
         is_ally = true;
@@ -29,6 +36,16 @@ public class Player : Entity
         }
         to_move = to_move.normalized * speed * Time.deltaTime;
         transform.Translate(to_move);
+
+        if(to_move != Vector2.zero)
+        {
+            Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, to_move);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+        }
+
+
+
+
         Debug.Log("boite en fer (c'est mieux)");
         /*if (transform.position.x > 10.7f) {
             Vector2 temp = new Vector2(-10.7f, transform.position.y);
