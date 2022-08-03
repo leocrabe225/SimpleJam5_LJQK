@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Game_manager : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class Game_manager : MonoBehaviour
     private GameObject player;
     [System.NonSerialized]
     public int scraps;
+    [SerializeField]
+    private TextMeshProUGUI scraps_text;
 
     void spawnZone1() {
         //spawn fighter robots
@@ -33,7 +36,7 @@ public class Game_manager : MonoBehaviour
             }
             Vector2 temp = new Vector2(x,y);
             temp = temp.normalized * Random.Range(ZONE_1_SAFEZONE, ZONE_1_RADIUS);
-            Instantiate(fighter_robot_prefab, temp, new Quaternion(0,0,0,1));
+            Instantiate(fighter_robot_prefab, temp, new Quaternion(0,0,0,1), transform);
         }
         //spawn dead machines
         for (var i=0;i < ZONE_1_AMOUNT;i++) {
@@ -48,12 +51,14 @@ public class Game_manager : MonoBehaviour
             }
             Vector2 temp = new Vector2(x,y);
             temp = temp.normalized * Random.Range(2, ZONE_1_RADIUS);
-            Instantiate(dead_robot_prefab, temp, new Quaternion(0,0,0,1));
+            Instantiate(dead_robot_prefab, temp, new Quaternion(0,0,0,1), transform);
         }
     }
 
     public void add_scraps(int amount) {
         scraps += amount;
+        scraps_text.text = "Scraps : " + scraps.ToString();
+        Debug.Log(scraps);
     }
 
     void Start()

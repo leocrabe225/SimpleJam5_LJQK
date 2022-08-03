@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class Dead_robot : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject Game_manager;
-    
-    void OnCollisionEnter2D(Collision2D col)
+    void OnTriggerEnter2D(Collider2D col)
     {
         Debug.Log("Collectible hovered by " + col.gameObject.name);
         Entity entity_hit =  col.gameObject.gameObject.GetComponent<Entity>();
         if (entity_hit.is_ally) {
-
+            transform.parent.GetComponent<Game_manager>().add_scraps(1);
+            Destroy(gameObject);
         }
     }
 }
