@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2523938719979929493}
   - component: {fileID: 2523938719979929492}
+  - component: {fileID: 4136467680125479545}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -47,3 +48,17 @@ MonoBehaviour:
   player_prefab: {fileID: 7827321790177309050, guid: 6b2a8fd220dac4f468b3a0a2b26b8709, type: 3}
   fighter_robot_prefab: {fileID: 45194217959105238, guid: 48c03906b9a67754786e6b91d3522b53, type: 3}
   dead_robot_prefab: {fileID: 2706275157431229177, guid: f69958e461fd1d240843a56cdd173b73, type: 3}
+  scraps_text: {fileID: 0}
+--- !u!114 &4136467680125479545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2523938719979929499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a880f226d9c2f4b44aae99193e871b42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentTimeText: {fileID: 0}

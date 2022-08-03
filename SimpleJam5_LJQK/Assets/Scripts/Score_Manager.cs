@@ -19,6 +19,7 @@ public class Score_Manager : MonoBehaviour
     void Start()
     {
         currentTime = 0;
+        StartStopWatch();
     }
 
     // Update is called once per frame
