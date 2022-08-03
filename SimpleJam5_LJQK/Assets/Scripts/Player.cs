@@ -42,7 +42,7 @@ public class Player : Entity
         {
             Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, to_move);
             Debug.Log(toRotation);
-            sprite.transform.rotation = Quaternion.RotateTowards(sprite.transform.rotation, toRotation, - rotationSpeed * Time.deltaTime);
+            sprite.transform.rotation = Quaternion.RotateTowards(sprite.transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
             //if()
         }
 
