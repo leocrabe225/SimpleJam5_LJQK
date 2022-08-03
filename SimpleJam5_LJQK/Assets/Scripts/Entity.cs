@@ -4,17 +4,5 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
-    public int health;
-    void Start()
-    {
-        health = 10;
-    }
-    
-    void Update()
-    {
-        if (health < 0)
-            print("OH NO");
-    }
-    
-    
+    public int health;  
 }
