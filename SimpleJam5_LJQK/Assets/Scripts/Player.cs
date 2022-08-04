@@ -100,4 +100,13 @@ public class Player : Entity
         }
         return (amount > 0); 
     }
+
+    public void order_defense() {
+        foreach(Transform child in transform)
+        {
+            if (child.GetComponent<Robot>()) {
+                child.GetComponent<Robot>().is_at_war = false;
+            }
+        }
+    }
 }
