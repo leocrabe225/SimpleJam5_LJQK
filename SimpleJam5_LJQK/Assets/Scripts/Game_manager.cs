@@ -96,6 +96,7 @@ public class Game_manager : MonoBehaviour
     {
         scraps = 0;
         player = Instantiate(player_prefab);
+        player.GetComponent<Player>().game_Manager = gameObject;
         spawnZone1();
     }
 

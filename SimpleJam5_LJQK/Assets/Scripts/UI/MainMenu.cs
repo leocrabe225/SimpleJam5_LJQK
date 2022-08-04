@@ -25,13 +25,18 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-        StartCoroutine(ChangeSceneFade());
+        StartCoroutine(ChangeSceneFade(1));
         
     }
 
     public void QuitGame()
     {
         StartCoroutine(QuitFade());
+    }
+
+    public void Death()
+    {
+        StartCoroutine(ChangeSceneFade(2));
     }
 
     public IEnumerator FadeBlackOutSquare (bool fadeToBlack = true, int fadeSpeed = 5)
@@ -65,11 +70,11 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    public IEnumerator ChangeSceneFade()
+    public IEnumerator ChangeSceneFade(int i)
     {
         StartCoroutine(FadeBlackOutSquare());
         yield return new WaitForSeconds(0.8f);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(i);
         yield return null;
     }
 
@@ -80,4 +85,5 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
         yield return null;
     }
+
 }

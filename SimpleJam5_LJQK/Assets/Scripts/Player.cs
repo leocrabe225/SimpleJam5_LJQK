@@ -8,6 +8,7 @@ public class Player : Entity
     private float TIME_TO_START_REGEN = 10;
     private float REGEN_TIME = 10;
 
+    bool isAlive = true;
     private float speed = 5;
     public bool regen_on = false;
     public GameObject sprite;
@@ -21,7 +22,7 @@ public class Player : Entity
     private Vector2[][] rings_positions;
 
     public GameObject temp_ring;
-
+    public GameObject game_Manager;
 
 
     void Start()
@@ -34,46 +35,58 @@ public class Player : Entity
     // Update is called once per frame
     void Update()
     {
-
-        Vector2 to_move = Vector2.zero;
-        if (Input.GetKey(KeyCode.W)) {
-            to_move += Vector2.up;
-        }
-        else if (Input.GetKey(KeyCode.S)) {
-            to_move += Vector2.down;
-        }
-        if (Input.GetKey(KeyCode.A)) {
-            to_move += Vector2.left;
-        }
-        else if (Input.GetKey(KeyCode.D)) {
-            to_move += Vector2.right;
-        }
-        to_move = to_move.normalized * speed * Time.deltaTime;
-        transform.Translate(to_move);
-
-        if(to_move != Vector2.zero)
+        if (isAlive)
         {
-            Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, to_move);
-            sprite.transform.rotation = Quaternion.RotateTowards(sprite.transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
-        }
-        //Uncomment when aggro system is done
-        time_no_fight += Time.deltaTime;
-        if (time_no_fight > TIME_TO_START_REGEN) {
-            if (time_no_fight < TIME_TO_START_REGEN + REGEN_TIME + 0.5f) {
-                if (!regen_on) {
-                    regen_speed = (max_health - health) / REGEN_TIME;
-                }
-                regen_on = true;
+            Vector2 to_move = Vector2.zero;
+            if (Input.GetKey(KeyCode.W))
+            {
+                to_move += Vector2.up;
             }
-            else {
+            else if (Input.GetKey(KeyCode.S))
+            {
+                to_move += Vector2.down;
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                to_move += Vector2.left;
+            }
+            else if (Input.GetKey(KeyCode.D))
+            {
+                to_move += Vector2.right;
+            }
+            to_move = to_move.normalized * speed * Time.deltaTime;
+            transform.Translate(to_move);
+
+            if (to_move != Vector2.zero)
+            {
+                Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, to_move);
+                sprite.transform.rotation = Quaternion.RotateTowards(sprite.transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+            }
+            //Uncomment when aggro system is done
+            time_no_fight += Time.deltaTime;
+            if (time_no_fight > TIME_TO_START_REGEN)
+            {
+                if (time_no_fight < TIME_TO_START_REGEN + REGEN_TIME + 0.5f)
+                {
+                    if (!regen_on)
+                    {
+                        regen_speed = (max_health - health) / REGEN_TIME;
+                    }
+                    regen_on = true;
+                }
+                else
+                {
+                    regen_on = false;
+                }
+            }
+            else
+            {
                 regen_on = false;
             }
-        }
-        else {
-            regen_on = false;
-        }
-        if (regen_on) {
-            health += regen_speed * Time.deltaTime;
+            if (regen_on)
+            {
+                health += regen_speed * Time.deltaTime;
+            }
         }
     }
 
@@ -158,6 +171,18 @@ public class Player : Entity
                 }
 
             }
+        }
+    }
+
+    public override void removeHealth(float amount)
+    {
+        health -= amount;
+        Debug.Log("Taken " + amount.ToString() + " damage, " + health.ToString() + "hp left");
+        if (health <= 0 && !is_immortal)
+        {
+            isAlive = false;
+            game_Manager.GetComponent<MainMenu>().Death();
+            
         }
     }
 }
