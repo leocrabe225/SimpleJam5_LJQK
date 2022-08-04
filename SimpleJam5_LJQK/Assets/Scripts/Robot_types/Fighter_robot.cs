@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Fighter_robot : Robot
 {
+
     void OnCollisionStay2D(Collision2D col)
     {
         Debug.Log("hit " + col.gameObject.name);

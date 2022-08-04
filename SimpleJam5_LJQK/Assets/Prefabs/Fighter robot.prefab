@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5252129155238853238}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.116, z: 0}
+  m_LocalPosition: {x: 0, y: -0.084, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -144,6 +144,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   sprite: {fileID: 5252129155238853238}
+  robotSprites:
+  - {fileID: 21300000, guid: 6f02f8ee1b6379245a91ee0bdcfc05d3, type: 3}
+  - {fileID: 21300000, guid: 8b72af08aa40bc84e95936b800250728, type: 3}
 --- !u!58 &5252129155408306729
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -816,7 +819,7 @@ ParticleSystem:
     radiusThickness: 1
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
-    m_Rotation: {x: 0, y: 0, z: 0}
+    m_Rotation: {x: 0, y: 0, z: 32.49}
     m_Scale: {x: 1, y: 1, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
@@ -953,7 +956,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
     arc:
-      value: 360
+      value: 120
       mode: 3
       spread: 0
       speed:

@@ -22,7 +22,8 @@ public class Outpost : Entity
     int totalRadius;
     [SerializeField]
     float deliveryCoolDown;
-
+    [SerializeField]
+    Sprite allyOutpostSprite;
 
 
     int initialchildNbr;
@@ -59,6 +60,7 @@ public class Outpost : Entity
         if (childNbr <=1)
         {
             is_ally = true;
+            transform.GetComponent<SpriteRenderer>().sprite = allyOutpostSprite;
         }
     }
 
