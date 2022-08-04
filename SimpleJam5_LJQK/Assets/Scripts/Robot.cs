@@ -74,6 +74,9 @@ public class Robot : Entity
                 }
             }
         }
+        if (is_ally) {
+            transform.rotation = transform.parent.GetComponent<Player>().sprite.transform.rotation;
+        }
     }
 
     protected void Attack(Entity target)
