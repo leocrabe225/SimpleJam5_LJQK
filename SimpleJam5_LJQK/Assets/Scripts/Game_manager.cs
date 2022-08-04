@@ -10,14 +10,16 @@ public class Game_manager : MonoBehaviour
     int ZONE_1_AMOUNT = 50;
     float ZONE_1_SAFEZONE = 10;
     float ZONE_1_RADIUS = 50;
-
+    float ZONE_2_RADIUS = 100;
     [SerializeField]
     private GameObject player_prefab;
     [SerializeField]
     private GameObject fighter_robot_prefab;
     [SerializeField]
     private GameObject dead_robot_prefab;
-    private GameObject player;
+    [SerializeField]
+    private GameObject outpost_prefab;
+    public GameObject player;
     [System.NonSerialized]
     public int scraps;
     [SerializeField]
@@ -43,6 +45,8 @@ public class Game_manager : MonoBehaviour
             temp = temp.normalized * Random.Range(safezone, radius) + start;
             GameObject temp_object = Instantiate(prefab, temp, new Quaternion(0,0,0,1), parent);
             temp_object.GetComponent<Entity>().is_ally = is_ally;
+            
+            //temp_object.GetComponent<Outpost>().player = player;
         }
     }
 
@@ -51,6 +55,8 @@ public class Game_manager : MonoBehaviour
         spawn_entities_in_circle(fighter_robot_prefab, ZONE_1_AMOUNT, Vector2.zero, ZONE_1_SAFEZONE, ZONE_1_RADIUS, transform, false);
         //spawn dead machines
         spawn_entities_in_circle(dead_robot_prefab, ZONE_1_AMOUNT, Vector2.zero, 2f, ZONE_1_RADIUS, transform, true);
+        //spawn outposts
+        spawn_entities_in_circle(outpost_prefab, 20 , Vector2.zero, ZONE_1_RADIUS, ZONE_2_RADIUS, transform, false);
     }
 
     public void add_scraps(int amount) {
