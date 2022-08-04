@@ -38,7 +38,7 @@ public class Drone : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             print("works");
-            gameManager.GetComponent<Game_manager>().spawn_entities_in_circle(robotToInstantiate, spawnAmount, transform.position, safeZone, totalRadius, transform, true);
+            gameManager.GetComponent<Game_manager>().spawn_entities_in_circle(robotToInstantiate, spawnAmount, player.transform.position, safeZone, totalRadius, transform, true);
             Destroy(gameObject);
         }
     }

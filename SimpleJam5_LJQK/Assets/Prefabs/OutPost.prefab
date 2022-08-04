@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4146381865543209542}
   - component: {fileID: 4533746208535219492}
+  - component: {fileID: 1121110488859942434}
   m_Layer: 0
   m_Name: OutPost
   m_TagString: Untagged
@@ -56,6 +57,22 @@ MonoBehaviour:
   safeZone: 1
   totalRadius: 10
   deliveryCoolDown: 10
+--- !u!58 &1121110488859942434
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3877964166094736254}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.5, y: -0.9}
+  serializedVersion: 2
+  m_Radius: 2.5
 --- !u!1 &4605551379708058133
 GameObject:
   m_ObjectHideFlags: 0

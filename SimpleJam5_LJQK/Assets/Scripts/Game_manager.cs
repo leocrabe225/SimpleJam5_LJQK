@@ -19,6 +19,8 @@ public class Game_manager : MonoBehaviour
     private GameObject dead_robot_prefab;
     [SerializeField]
     private GameObject outpost_prefab;
+    [SerializeField]
+    private GameObject rocks_prefab;
     public GameObject player;
     [System.NonSerialized]
     public int scraps;
@@ -45,7 +47,9 @@ public class Game_manager : MonoBehaviour
             Vector2 temp = new Vector2(x,y);
             temp = temp.normalized * Random.Range(safezone, radius) + start;
             temp_object = Instantiate(prefab, temp, new Quaternion(0,0,0,1), parent);
+
             temp_object.GetComponent<Entity>().is_ally = is_ally;
+            
         }
         return (temp_object);
     }
@@ -57,6 +61,8 @@ public class Game_manager : MonoBehaviour
         spawn_entities_in_circle(dead_robot_prefab, ZONE_1_AMOUNT, Vector2.zero, 2f, ZONE_1_RADIUS, transform, true);
         //spawn outposts
         spawn_entities_in_circle(outpost_prefab, 20 , Vector2.zero, ZONE_1_RADIUS, ZONE_2_RADIUS, transform, false);
+        //spawn rocks
+        spawn_entities_in_circle(rocks_prefab, 80, Vector2.zero, 4f, ZONE_2_RADIUS, transform, false);
     }
 
     public void add_scraps(int amount) {
