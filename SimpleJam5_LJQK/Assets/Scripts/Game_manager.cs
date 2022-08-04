@@ -120,6 +120,7 @@ public class Game_manager : MonoBehaviour
                 }
             }
             else {
+                player.GetComponent<Player>().order_defense();
                 attack_button.GetComponent<Image>().color = Color.red;
                 attack_button.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Fight mode off (Space)";
             }

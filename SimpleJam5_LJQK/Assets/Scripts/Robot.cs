@@ -16,6 +16,7 @@ public class Robot : Entity
     public GameObject target = null;
     public bool is_at_war = false;
     public LayerMask masktest;
+    public GameObject sprite;
 
     void Start()
     {
@@ -75,7 +76,7 @@ public class Robot : Entity
             }
         }
         if (is_ally) {
-            transform.rotation = transform.parent.GetComponent<Player>().sprite.transform.rotation;
+            sprite.transform.rotation = transform.parent.GetComponent<Player>().sprite.transform.rotation;
         }
     }
 
