@@ -511,10 +511,10 @@ RectTransform:
   m_Father: {fileID: 1632141695}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.20242, y: 0}
-  m_SizeDelta: {x: 1150.1, y: 493.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -0.076187134, y: 0.12499847}
+  m_SizeDelta: {x: -0.15237427, y: -0.24999695}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!111 &539718855
 Animation:
@@ -525,7 +525,7 @@ Animation:
   m_GameObject: {fileID: 539718853}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 0}
+  m_Animation: {fileID: 7400000, guid: f93420389577a6041b2d1750fa94b4b2, type: 2}
   m_Animations:
   - {fileID: 7400000, guid: b8bdf85ea1c0aca488fe8b4fcf92f445, type: 2}
   - {fileID: 7400000, guid: f93420389577a6041b2d1750fa94b4b2, type: 2}
@@ -546,7 +546,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1440,6 +1440,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2523938719979929492, guid: c343a9360d3092e4b96addfb22d0ce80, type: 3}
+      propertyPath: scraps
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2523938719979929492, guid: c343a9360d3092e4b96addfb22d0ce80, type: 3}
       propertyPath: scraps_text
       value: 

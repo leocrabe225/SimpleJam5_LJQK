@@ -59,7 +59,7 @@ public class Outpost : Entity
         if (childNbr <=1)
         {
             is_ally = true;
-            transform.GetComponent<SpriteRenderer>().sprite = allyOutpostSprite;
+            transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = allyOutpostSprite;
         }
     }
 
