@@ -26,7 +26,7 @@ public class Game_manager : MonoBehaviour
     public int scraps;
     [SerializeField]
     private TextMeshProUGUI scraps_text;
-    private bool attack_mode = false;
+    public bool attack_mode = false;
     [SerializeField]
     private Button craft_button;
     [SerializeField]
@@ -103,10 +103,7 @@ public class Game_manager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E)) {
             if (remove_scraps(5)) {
-                GameObject robot = spawn_entities_in_circle(fighter_robot_prefab, 1, player.transform.position, 1, 3, player.transform, true);
-                if (attack_mode) {
-                    robot.GetComponent<Robot>().is_at_war = true;
-                }
+                GameObject robot = player.GetComponent<Player>().spawn_new_robot(fighter_robot_prefab);
             }
         }
         if (Input.GetKeyDown(KeyCode.Space)) {

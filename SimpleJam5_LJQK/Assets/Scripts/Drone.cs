@@ -9,8 +9,8 @@ public class Drone : MonoBehaviour
 
     [SerializeField]
     float speed = 10;
-    [SerializeField]
-    int spawnAmount = 1;
+    //[SerializeField]
+    //int spawnAmount = 1;
     [SerializeField]
     GameObject robotToInstantiate;
     [SerializeField]
@@ -37,11 +37,9 @@ public class Drone : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            print("works");
-            gameManager.GetComponent<Game_manager>().spawn_entities_in_circle(robotToInstantiate, spawnAmount, transform.position, safeZone, totalRadius, player.transform, true);
+            //gameManager.GetComponent<Game_manager>().spawn_entities_in_circle(robotToInstantiate, spawnAmount, transform.position, safeZone, totalRadius, player.transform, true);
+            player.GetComponent<Player>().spawn_new_robot(robotToInstantiate);
             Destroy(gameObject);
         }
     }
-
-
 }

@@ -166,6 +166,7 @@ MonoBehaviour:
     m_Bits: 1024
   rotationSpeed: 360
   temp_ring: {fileID: 1360767009846662870, guid: 3a8d9e23d12fbbf4e8eaab13aa3b2c52, type: 3}
+  childCamera: {fileID: 4329087118078291395}
 --- !u!58 &8088948379377644936
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -12,10 +12,12 @@ public class Entity : MonoBehaviour
 
     public virtual void removeHealth(float amount)
     {
-        health -= amount;
-        Debug.Log("Taken " + amount.ToString() + " damage, " + health.ToString() + "hp left");
-        if (health <= 0 && !is_immortal) {
-            Destroy(gameObject);
+        if (!is_immortal) {
+            health -= amount;
+            Debug.Log("Taken " + amount.ToString() + " damage, " + health.ToString() + "hp left");
+            if (health <= 0) {
+                Destroy(gameObject);
+            }
         }
     }
 }

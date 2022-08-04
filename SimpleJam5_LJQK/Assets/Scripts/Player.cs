@@ -21,8 +21,7 @@ public class Player : Entity
     private Vector2[][] rings_positions;
 
     public GameObject temp_ring;
-
-
+    public GameObject childCamera;
 
     void Start()
     {
@@ -78,7 +77,7 @@ public class Player : Entity
     }
 
     private void generate_rings(float spacing, float start) {
-        int ring_amount = 5;
+        int ring_amount = 20;
         float rad_distance;
         rings_positions = new Vector2[ring_amount][];
         rings_status = new bool[ring_amount][];
@@ -94,7 +93,7 @@ public class Player : Entity
                 float sin = Mathf.Sin(rad_distance);
                 float cos = Mathf.Cos(rad_distance);
                 rings_positions[y][i] = new Vector2(cos * (start + spacing * y),sin * (start + spacing * y));
-                Instantiate(temp_ring, rings_positions[y][i], new Quaternion(0,0,0,1));
+                //Instantiate(temp_ring, rings_positions[y][i], new Quaternion(0,0,0,1));
             }
         }
     }
@@ -131,6 +130,30 @@ public class Player : Entity
         return (amount > 0); 
     }
 
+    public GameObject spawn_new_robot(GameObject prefab) {
+        bool broke = false;
+        GameObject robot = null;
+        for (var y=0; y < rings_status.Length; y ++) {
+            for (var i=0; i < rings_status[y].Length; i++) {
+                if (!rings_status[y][i]){ 
+                    robot = Instantiate(prefab, (Vector3)rings_positions[y][i] + transform.position, new Quaternion(0,0,0,1), transform);
+                    robot.GetComponent<Entity>().is_ally = true;
+                    /*if (game_manager.GetComponent<Game_manager>().attack_mode) {
+                        robot.GetComponent<Robot>().is_at_war = true;
+                    }*/
+                    rings_status[y][i] = true;
+                    broke = true;
+                    childCamera.GetComponent<Camera>().orthographicSize = y + 1 + 5;
+                    break ;
+                }
+            }
+            if (broke) {
+                break;
+            }
+        }
+        return (robot);
+    }
+
     public void order_defense() {
         List<Robot> robot_list = new List<Robot>();
         foreach(Transform child in transform)
@@ -147,13 +170,11 @@ public class Player : Entity
         for (var y=0; y < rings_status.Length; y ++) {
             for (var i=0; i < rings_status[y].Length; i++) {
                 if (em.Current){ 
-                    Debug.Log("em.Current : " + em.Current);
                     em.Current.defense_target = rings_positions[y][i];
                     rings_status[y][i] = true;
                     em.MoveNext();
                 }
                 else {
-                    Debug.Log("em.Current : " + em.Current);
                     rings_status[y][i] = false;
                 }
 
