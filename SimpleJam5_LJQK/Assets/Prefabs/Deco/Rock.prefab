@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 4190593938918603427}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 13.737434, y: -52.689693, z: 0.91835296}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -75,8 +75,8 @@ SpriteRenderer:
   m_SortingLayerID: 704978075
   m_SortingLayer: -1
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 898622f9c61c9e74e93c03ac002e6365, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 428b249f9b2a59f44b4376e313faa42d, type: 3}
+  m_Color: {r: 0.745283, g: 0.745283, b: 0.745283, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -101,7 +101,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.6
+  m_Radius: 0.2
 --- !u!114 &8223506938238669737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,7 +119,7 @@ MonoBehaviour:
   is_ally: 1
   is_immortal: 1
   RockSprites:
-  - {fileID: 21300000, guid: 2d138e0c5e2e24a4ca0ee6cb8fa5b1a2, type: 3}
-  - {fileID: 21300000, guid: 898622f9c61c9e74e93c03ac002e6365, type: 3}
-  - {fileID: 21300000, guid: 9e0bce46875fce84fb498b3ab14a2f42, type: 3}
-  - {fileID: 21300000, guid: e8b5a9648e8d664448f053e9931fb3a5, type: 3}
+  - {fileID: 21300000, guid: 428b249f9b2a59f44b4376e313faa42d, type: 3}
+  - {fileID: 21300000, guid: f06914e9c603b8740bde8250a3ae5b18, type: 3}
+  - {fileID: 21300000, guid: 4bf02c1a4fa982047840e558fa74aa11, type: 3}
+  - {fileID: 21300000, guid: 569b0809b2266f2438b1beaedb530464, type: 3}
