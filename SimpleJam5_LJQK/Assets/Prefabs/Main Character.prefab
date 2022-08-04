@@ -153,10 +153,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 403f30ceb64590349a806a6c2368ead2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 0
+  max_health: 10
   is_ally: 1
   sprite: {fileID: 1136328022445434070}
-  rotationSpeed: 120
+  rotationSpeed: 360
 --- !u!58 &8088948379377644936
 CircleCollider2D:
   m_ObjectHideFlags: 0

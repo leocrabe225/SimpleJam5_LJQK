@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class Game_manager : MonoBehaviour
@@ -21,6 +22,11 @@ public class Game_manager : MonoBehaviour
     public int scraps;
     [SerializeField]
     private TextMeshProUGUI scraps_text;
+    private bool attack_mode = false;
+    [SerializeField]
+    private Button craft_button;
+    [SerializeField]
+    private Button attack_button;
 
     public void spawn_entities_in_circle(GameObject prefab, int amount, Vector2 start, float safezone, float radius, Transform parent, bool is_ally) {
         for (var i=0;i < amount;i++) {
@@ -66,6 +72,12 @@ public class Game_manager : MonoBehaviour
 
     void update_scraps_text() {
         scraps_text.text = "Scraps : " + scraps.ToString();
+        if (scraps >= 5) {
+            craft_button.interactable = true;
+        }
+        else {
+            craft_button.interactable = false;
+        }
     }
 
     void Start()
@@ -77,10 +89,24 @@ public class Game_manager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        if (Input.GetKeyDown(KeyCode.E)) {
             if (remove_scraps(5)) {
                 spawn_entities_in_circle(fighter_robot_prefab, 1, player.transform.position, 1, 3, player.transform, true);
             }
+        }
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            attack_mode = !attack_mode;
+            if (attack_mode) {
+                attack_button.GetComponent<Image>().color = Color.green;
+                attack_button.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Fight mode on  (Space)";
+            }
+            else {
+                attack_button.GetComponent<Image>().color = Color.red;
+                attack_button.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Fight mode off (Space)";
+            }
+        }
+        if (attack_mode) {
+            player.GetComponent<Player>().time_no_fight = 0;
         }
     }
 }

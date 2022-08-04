@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 5252129155238853238}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5252129155408306731}
@@ -131,7 +131,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b67fe179ba02141adc29db070da805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 20
+  health: 0
+  max_health: 20
   is_ally: 0
   dead_robot_prefab: {fileID: 3777673230381507017, guid: f69958e461fd1d240843a56cdd173b73, type: 3}
 --- !u!58 &5252129155408306729
@@ -149,7 +150,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.35
 --- !u!50 &5252129155408306728
 Rigidbody2D:
   serializedVersion: 4
