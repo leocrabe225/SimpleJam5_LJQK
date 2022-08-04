@@ -9,7 +9,8 @@ public class Player : Entity
     public bool regen_on = false;
     public GameObject sprite;
     public float time_no_fight;
-
+    private float regen_speed;
+    public LayerMask masktest;
 
     [SerializeField]
     private float rotationSpeed;
@@ -25,6 +26,7 @@ public class Player : Entity
     // Update is called once per frame
     void Update()
     {
+
         Vector2 to_move = Vector2.zero;
         if (Input.GetKey(KeyCode.W)) {
             to_move += Vector2.up;
@@ -50,6 +52,9 @@ public class Player : Entity
         time_no_fight += Time.deltaTime;
         if (time_no_fight > 10) {
             if (time_no_fight < 20.5f) {
+                if (!regen_on) {
+                    regen_speed = (max_health - health) / 10;
+                }
                 regen_on = true;
             }
             else {
@@ -59,5 +64,40 @@ public class Player : Entity
         else {
             regen_on = false;
         }
+        if (regen_on) {
+            health += regen_speed * Time.deltaTime;
+        }
+    }
+
+    public bool order_attack() {
+        var i = 0;
+        float farest_robot = 0;
+        foreach(Transform child in transform)
+        {
+            if (child.GetComponent<Robot>()) {
+                if (child.localPosition.magnitude > farest_robot) {
+                    farest_robot = child.localPosition.magnitude;
+                }
+                i++;
+            }
+        }
+        //Debug.Log(i.ToString() + "robots");
+        //Debug.Log("farest : " + farest_robot.ToString());
+        RaycastHit2D[] results = new RaycastHit2D[200];
+        ContactFilter2D filter_test = new ContactFilter2D();
+        filter_test.SetLayerMask(masktest);
+        int amount = Physics2D.CircleCast(transform.position, farest_robot + 3, Vector2.zero, filter_test, results, 0);
+        Debug.Log("hits : " + amount.ToString());
+        //Debug.Log("hits : " + Physics2D.CircleCast(transform.position, farest_robot + 3, Vector2.zero, new ContactFilter2D(), results, 0).ToString());
+        if (amount > 0) {
+            foreach(Transform child in transform)
+            {
+                if (child.GetComponent<Robot>()) {
+                    child.GetComponent<Robot>().target = results[Random.Range(0, amount)].transform.gameObject;
+                    child.GetComponent<Robot>().is_at_war = true;
+                }
+            }
+        }
+        return (amount > 0); 
     }
 }

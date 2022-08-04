@@ -12,8 +12,16 @@ public class Robot : Entity
     private bool game_on = true;
     private bool regenerating = false;
     private float regen_speed;
+    private float speed = 5;
+    public GameObject target = null;
+    public bool is_at_war = false;
+    public LayerMask masktest;
+
     void Start()
     {
+        if (!is_ally) {
+            gameObject.layer = 10;
+        }
         health = max_health;
         damage = 5;
         cooldown_time = 1;
@@ -37,6 +45,31 @@ public class Robot : Entity
                     health += regen_speed * Time.deltaTime;
                     if (health > max_health) {
                         health = max_health;
+                    }
+                }
+            }
+        }
+        if (is_at_war) {
+            if (!(target == null)) {
+                Debug.Log("target isok");
+                Vector2 to_move = (target.transform.position - transform.position).normalized * speed * Time.deltaTime;
+                transform.Translate(to_move);
+            }
+            else {
+                RaycastHit2D[] results = new RaycastHit2D[10];
+                ContactFilter2D filter_test = new ContactFilter2D();
+                filter_test.SetLayerMask(masktest);
+                int amount = Physics2D.CircleCast(transform.position, 3, Vector2.zero, filter_test, results, 0);
+                Debug.Log("target is null : " + amount.ToString());
+                float closest = Mathf.Infinity;
+                if (amount > 0) {
+                    for (var i = 0; i < amount; i++)
+                    {
+                        float temp = (results[i].transform.position - transform.position).magnitude;
+                        if (temp < closest) {
+                            target = results[i].transform.gameObject;
+                            closest = temp;
+                        }
                     }
                 }
             }

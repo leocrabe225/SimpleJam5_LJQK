@@ -30,7 +30,8 @@ public class Game_manager : MonoBehaviour
     [SerializeField]
     private Button attack_button;
 
-    public void spawn_entities_in_circle(GameObject prefab, int amount, Vector2 start, float safezone, float radius, Transform parent, bool is_ally) {
+    public GameObject spawn_entities_in_circle(GameObject prefab, int amount, Vector2 start, float safezone, float radius, Transform parent, bool is_ally) {
+        GameObject temp_object = null;
         for (var i=0;i < amount;i++) {
             var x = Random.Range(0f, 1f);
             if (Random.Range(0f, 2f) > 1) {
@@ -43,11 +44,10 @@ public class Game_manager : MonoBehaviour
             }
             Vector2 temp = new Vector2(x,y);
             temp = temp.normalized * Random.Range(safezone, radius) + start;
-            GameObject temp_object = Instantiate(prefab, temp, new Quaternion(0,0,0,1), parent);
+            temp_object = Instantiate(prefab, temp, new Quaternion(0,0,0,1), parent);
             temp_object.GetComponent<Entity>().is_ally = is_ally;
-            
-            //temp_object.GetComponent<Outpost>().player = player;
         }
+        return (temp_object);
     }
 
     void spawnZone1() {
@@ -62,7 +62,6 @@ public class Game_manager : MonoBehaviour
     public void add_scraps(int amount) {
         scraps += amount;
         update_scraps_text();
-        Debug.Log(scraps);
     }
 
     public bool remove_scraps(int amount) {
@@ -97,14 +96,22 @@ public class Game_manager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E)) {
             if (remove_scraps(5)) {
-                spawn_entities_in_circle(fighter_robot_prefab, 1, player.transform.position, 1, 3, player.transform, true);
+                GameObject robot = spawn_entities_in_circle(fighter_robot_prefab, 1, player.transform.position, 1, 3, player.transform, true);
+                if (attack_mode) {
+                    robot.GetComponent<Robot>().is_at_war = true;
+                }
             }
         }
         if (Input.GetKeyDown(KeyCode.Space)) {
             attack_mode = !attack_mode;
             if (attack_mode) {
-                attack_button.GetComponent<Image>().color = Color.green;
-                attack_button.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Fight mode on  (Space)";
+                if (player.GetComponent<Player>().order_attack()) {
+                    attack_button.GetComponent<Image>().color = Color.green;
+                    attack_button.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Fight mode on  (Space)";
+                }
+                else {
+                    attack_mode = false;
+                }
             }
             else {
                 attack_button.GetComponent<Image>().color = Color.red;

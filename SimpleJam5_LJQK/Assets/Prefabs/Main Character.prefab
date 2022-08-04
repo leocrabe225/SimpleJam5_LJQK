@@ -156,7 +156,13 @@ MonoBehaviour:
   health: 0
   max_health: 10
   is_ally: 1
+  is_immortal: 0
+  regen_on: 0
   sprite: {fileID: 1136328022445434070}
+  time_no_fight: 0
+  masktest:
+    serializedVersion: 2
+    m_Bits: 1024
   rotationSpeed: 360
 --- !u!58 &8088948379377644936
 CircleCollider2D:
