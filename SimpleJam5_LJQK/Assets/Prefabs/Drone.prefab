@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1222673753047507284}
   - component: {fileID: 4961277558749357498}
+  - component: {fileID: 5686742385055287364}
   m_Layer: 0
   m_Name: Drone
   m_TagString: Untagged
@@ -132,3 +133,23 @@ MonoBehaviour:
   player: {fileID: 3037428600940125618, guid: 6b2a8fd220dac4f468b3a0a2b26b8709, type: 3}
   gameManager: {fileID: 2523938719979929499, guid: c343a9360d3092e4b96addfb22d0ce80, type: 3}
   speed: 10
+  spawnAmount: 1
+  robotToInstantiate: {fileID: 5252129155408306735, guid: 48c03906b9a67754786e6b91d3522b53, type: 3}
+  safeZone: 0
+  totalRadius: 0
+--- !u!58 &5686742385055287364
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8814669674011071191}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5

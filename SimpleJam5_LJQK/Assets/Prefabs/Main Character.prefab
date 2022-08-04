@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7981953799577569706}
   m_Layer: 0
   m_Name: player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 8088948379377644936}
   m_Layer: 0
   m_Name: Main Character
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -156,7 +156,10 @@ MonoBehaviour:
   health: 0
   max_health: 10
   is_ally: 1
+  is_immortal: 0
+  regen_on: 0
   sprite: {fileID: 1136328022445434070}
+  time_no_fight: 0
   rotationSpeed: 360
 --- !u!58 &8088948379377644936
 CircleCollider2D:

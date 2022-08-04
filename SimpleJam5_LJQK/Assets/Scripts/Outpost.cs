@@ -54,7 +54,7 @@ public class Outpost : Entity
 
     public void FetchChildNbr()
     {
-        int childNbr = transform.childCount;
+        int childNbr = transform.childCount-1;
 
         if (childNbr <=1)
         {

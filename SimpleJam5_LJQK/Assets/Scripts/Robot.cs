@@ -55,6 +55,10 @@ public class Robot : Entity
         }
         health -= amount;
         if (health <= 0) {
+            if (transform.parent.GetComponent<Outpost>())
+            {
+                transform.parent.GetComponent<Outpost>().FetchChildNbr();
+            }
             Destroy(gameObject);
         }
     }

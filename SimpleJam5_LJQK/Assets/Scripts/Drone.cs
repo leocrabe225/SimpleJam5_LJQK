@@ -9,6 +9,14 @@ public class Drone : MonoBehaviour
 
     [SerializeField]
     float speed = 10;
+    [SerializeField]
+    int spawnAmount = 1;
+    [SerializeField]
+    GameObject robotToInstantiate;
+    [SerializeField]
+    int safeZone;
+    [SerializeField]
+    int totalRadius;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +31,16 @@ public class Drone : MonoBehaviour
         //print(player.transform.position);
         float step = speed * Time.deltaTime;
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, step);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            print("works");
+            gameManager.GetComponent<Game_manager>().spawn_entities_in_circle(robotToInstantiate, spawnAmount, transform.position, safeZone, totalRadius, transform, true);
+            Destroy(gameObject);
+        }
     }
 
 
