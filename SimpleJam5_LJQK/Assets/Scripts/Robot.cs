@@ -18,14 +18,19 @@ public class Robot : Entity
     public Vector3 defense_target;
     public LayerMask masktest;
     public GameObject sprite;
+    [SerializeField]
+    List<Sprite> robotSprites;
+
 
     void Start()
     {
         if (!is_ally) {
             gameObject.layer = 10;
+            transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = robotSprites[1];
         }
         else {
             defense_target = transform.localPosition;
+            transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = robotSprites[0];
         }
         health = max_health;
         damage = 5;

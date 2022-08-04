@@ -56,14 +56,16 @@ public class Game_manager : MonoBehaviour
     void spawnZone1() {
         //spawn fighter robots
         spawn_entities_in_circle(fighter_robot_prefab, ZONE_1_AMOUNT, Vector2.zero, ZONE_1_SAFEZONE, ZONE_1_RADIUS, transform, false);
+        spawn_entities_in_circle(fighter_robot_prefab, ZONE_1_AMOUNT, Vector2.zero, ZONE_1_RADIUS, ZONE_2_RADIUS, transform, false);
         //spawn dead machines
         spawn_entities_in_circle(dead_robot_prefab, ZONE_1_AMOUNT, Vector2.zero, 2f, ZONE_1_RADIUS, transform, true);
+        spawn_entities_in_circle(dead_robot_prefab, ZONE_1_AMOUNT, Vector2.zero, ZONE_1_RADIUS, ZONE_2_RADIUS, transform, true);
         //spawn outposts
         spawn_entities_in_circle(outpost_prefab, 20 , Vector2.zero, ZONE_1_RADIUS, ZONE_2_RADIUS, transform, false);
         //spawn rocks
-        spawn_entities_in_circle(rocks_prefab, 80, Vector2.zero, 4f, ZONE_2_RADIUS, transform, false);
+        spawn_entities_in_circle(rocks_prefab, 40, Vector2.zero, 4f, ZONE_2_RADIUS, transform, false);
+        spawn_entities_in_circle(rocks_prefab, 40, Vector2.zero, ZONE_1_RADIUS, ZONE_2_RADIUS, transform, false);
     }
-
     public void add_scraps(int amount) {
         scraps += amount;
         update_scraps_text();
