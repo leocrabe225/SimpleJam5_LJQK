@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5dec6612dcd92c2459cf07e1d1523e94, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f20247b89b555dc40a77c81bd22f51e1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 2414895282822442883}
   - component: {fileID: 78074224225114203}
   m_Layer: 0
-  m_Name: Shooter robot
+  m_Name: Explosive robot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -145,8 +145,8 @@ MonoBehaviour:
     m_Bits: 1024
   sprite: {fileID: 5252129155238853238}
   robotSprites:
-  - {fileID: 21300000, guid: 5dec6612dcd92c2459cf07e1d1523e94, type: 3}
-  - {fileID: 21300000, guid: 8b72af08aa40bc84e95936b800250728, type: 3}
+  - {fileID: 21300000, guid: f20247b89b555dc40a77c81bd22f51e1, type: 3}
+  - {fileID: 21300000, guid: 593179d1fb93083418460994dbaefaea, type: 3}
 --- !u!58 &5252129155408306729
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -160,9 +160,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.072603405}
   serializedVersion: 2
-  m_Radius: 0.35
+  m_Radius: 0.47001785
 --- !u!50 &5252129155408306728
 Rigidbody2D:
   serializedVersion: 4
