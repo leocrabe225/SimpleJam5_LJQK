@@ -5,6 +5,9 @@ using UnityEngine;
 public class Player : Entity
 {
     // Start is called before the first frame update
+    private float TIME_TO_START_REGEN = 10;
+    private float REGEN_TIME = 10;
+
     private float speed = 5;
     public bool regen_on = false;
     public GameObject sprite;
@@ -14,6 +17,10 @@ public class Player : Entity
 
     [SerializeField]
     private float rotationSpeed;
+    private bool[][] rings_status;
+    private Vector2[][] rings_positions;
+
+    public GameObject temp_ring;
 
 
 
@@ -21,6 +28,7 @@ public class Player : Entity
     {
         health = max_health;
         is_ally = true;
+        generate_rings(1, 2);
     }
 
     // Update is called once per frame
@@ -50,10 +58,10 @@ public class Player : Entity
         }
         //Uncomment when aggro system is done
         time_no_fight += Time.deltaTime;
-        if (time_no_fight > 10) {
-            if (time_no_fight < 20.5f) {
+        if (time_no_fight > TIME_TO_START_REGEN) {
+            if (time_no_fight < TIME_TO_START_REGEN + REGEN_TIME + 0.5f) {
                 if (!regen_on) {
-                    regen_speed = (max_health - health) / 10;
+                    regen_speed = (max_health - health) / REGEN_TIME;
                 }
                 regen_on = true;
             }
@@ -66,6 +74,28 @@ public class Player : Entity
         }
         if (regen_on) {
             health += regen_speed * Time.deltaTime;
+        }
+    }
+
+    private void generate_rings(float spacing, float start) {
+        int ring_amount = 5;
+        float rad_distance;
+        rings_positions = new Vector2[ring_amount][];
+        rings_status = new bool[ring_amount][];
+        for (var y=0; y < ring_amount; y++) {
+            float circumference = Mathf.PI * (start + spacing * y) * 2;
+            int spots = Mathf.FloorToInt(circumference);
+            rings_positions[y] = new Vector2[spots];
+            rings_status[y] = new bool[spots];
+
+            rad_distance = 0;
+            for (var i = 0; i < spots; i++){
+                rad_distance = 2 * Mathf.PI * ((float)i / (float)spots);
+                float sin = Mathf.Sin(rad_distance);
+                float cos = Mathf.Cos(rad_distance);
+                rings_positions[y][i] = new Vector2(cos * (start + spacing * y),sin * (start + spacing * y));
+                Instantiate(temp_ring, rings_positions[y][i], new Quaternion(0,0,0,1));
+            }
         }
     }
 
@@ -102,10 +132,31 @@ public class Player : Entity
     }
 
     public void order_defense() {
+        List<Robot> robot_list = new List<Robot>();
         foreach(Transform child in transform)
         {
             if (child.GetComponent<Robot>()) {
-                child.GetComponent<Robot>().is_at_war = false;
+                Robot robot = child.GetComponent<Robot>();
+                robot.is_at_war = false;
+                robot_list.Add(robot);
+            }
+        }
+        Debug.Log("List size : " + robot_list.Count.ToString());
+        List<Robot>.Enumerator em = robot_list.GetEnumerator();
+        em.MoveNext();
+        for (var y=0; y < rings_status.Length; y ++) {
+            for (var i=0; i < rings_status[y].Length; i++) {
+                if (em.Current){ 
+                    Debug.Log("em.Current : " + em.Current);
+                    em.Current.defense_target = rings_positions[y][i];
+                    rings_status[y][i] = true;
+                    em.MoveNext();
+                }
+                else {
+                    Debug.Log("em.Current : " + em.Current);
+                    rings_status[y][i] = false;
+                }
+
             }
         }
     }

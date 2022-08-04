@@ -22,7 +22,7 @@ public class Game_manager : MonoBehaviour
     [SerializeField]
     private GameObject rocks_prefab;
     public GameObject player;
-    [System.NonSerialized]
+    //[System.NonSerialized]
     public int scraps;
     [SerializeField]
     private TextMeshProUGUI scraps_text;
@@ -40,7 +40,6 @@ public class Game_manager : MonoBehaviour
                 x *= -1;
             }
             var y = Random.Range(0f, 1f);
-            Debug.Log(Random.Range(0f, 2f));
             if (Random.Range(0f, 2f) > 1) {
                 y *= -1;
             }

@@ -32,7 +32,6 @@ public class Outpost : Entity
     void Start()
     {
         gameManager = transform.parent.gameObject;
-        print(gameManager.GetComponent<Game_manager>());
         gameManager.GetComponent<Game_manager>().spawn_entities_in_circle(robotToInstantiate, spawnAmount, transform.position, safeZone, totalRadius, transform, false);
 
         int childNbr = transform.childCount;

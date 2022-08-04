@@ -15,6 +15,7 @@ public class Robot : Entity
     private float speed = 5;
     public GameObject target = null;
     public bool is_at_war = false;
+    public Vector3 defense_target;
     public LayerMask masktest;
     public GameObject sprite;
     [SerializeField]
@@ -27,8 +28,10 @@ public class Robot : Entity
             gameObject.layer = 10;
             transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = robotSprites[1];
         }
-        else
+        else {
+            defense_target = transform.localPosition;
             transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = robotSprites[0];
+        }
         health = max_health;
         damage = 5;
         cooldown_time = 1;
@@ -58,7 +61,6 @@ public class Robot : Entity
         }
         if (is_at_war) {
             if (!(target == null)) {
-                Debug.Log("target isok");
                 Vector2 to_move = (target.transform.position - transform.position).normalized * speed * Time.deltaTime;
                 transform.Translate(to_move);
             }
@@ -67,7 +69,6 @@ public class Robot : Entity
                 ContactFilter2D filter_test = new ContactFilter2D();
                 filter_test.SetLayerMask(masktest);
                 int amount = Physics2D.CircleCast(transform.position, 3, Vector2.zero, filter_test, results, 0);
-                Debug.Log("target is null : " + amount.ToString());
                 float closest = Mathf.Infinity;
                 if (amount > 0) {
                     for (var i = 0; i < amount; i++)
@@ -81,7 +82,14 @@ public class Robot : Entity
                 }
             }
         }
-        if (is_ally) {
+        else if (is_ally) {
+            Vector2 to_move = (defense_target - transform.localPosition).normalized * speed * Time.deltaTime;
+            if ((defense_target - transform.localPosition).magnitude > speed * Time.deltaTime) {
+                transform.Translate(to_move);
+            }
+            else {
+                transform.localPosition = defense_target;
+            }
             sprite.transform.rotation = transform.parent.GetComponent<Player>().sprite.transform.rotation;
         }
     }
