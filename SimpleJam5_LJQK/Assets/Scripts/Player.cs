@@ -24,6 +24,7 @@ public class Player : Entity
     public GameObject temp_ring;
     public GameObject childCamera;
     public GameObject game_Manager;
+    private float camera_size_goal = 5;
 
 
     void Start()
@@ -88,11 +89,17 @@ public class Player : Entity
             {
                 health += regen_speed * Time.deltaTime;
             }
+            if (Mathf.Abs(camera_size_goal - childCamera.GetComponent<Camera>().orthographicSize) < 0.001){
+                childCamera.GetComponent<Camera>().orthographicSize = camera_size_goal;
+            }
+            else {
+                childCamera.GetComponent<Camera>().orthographicSize += (camera_size_goal - childCamera.GetComponent<Camera>().orthographicSize) * 0.01f;
+            }
         }
     }
 
     private void generate_rings(float spacing, float start) {
-        int ring_amount = 20;
+        int ring_amount = 50;
         float rad_distance;
         rings_positions = new Vector2[ring_amount][];
         rings_status = new bool[ring_amount][];
@@ -108,7 +115,6 @@ public class Player : Entity
                 float sin = Mathf.Sin(rad_distance);
                 float cos = Mathf.Cos(rad_distance);
                 rings_positions[y][i] = new Vector2(cos * (start + spacing * y),sin * (start + spacing * y));
-                //Instantiate(temp_ring, rings_positions[y][i], new Quaternion(0,0,0,1));
             }
         }
     }
@@ -125,14 +131,10 @@ public class Player : Entity
                 i++;
             }
         }
-        //Debug.Log(i.ToString() + "robots");
-        //Debug.Log("farest : " + farest_robot.ToString());
         RaycastHit2D[] results = new RaycastHit2D[200];
         ContactFilter2D filter_test = new ContactFilter2D();
         filter_test.SetLayerMask(masktest);
         int amount = Physics2D.CircleCast(transform.position, farest_robot + 3, Vector2.zero, filter_test, results, 0);
-        Debug.Log("hits : " + amount.ToString());
-        //Debug.Log("hits : " + Physics2D.CircleCast(transform.position, farest_robot + 3, Vector2.zero, new ContactFilter2D(), results, 0).ToString());
         if (amount > 0) {
             foreach(Transform child in transform)
             {
@@ -153,12 +155,12 @@ public class Player : Entity
                 if (!rings_status[y][i]){ 
                     robot = Instantiate(prefab, (Vector3)rings_positions[y][i] + transform.position, new Quaternion(0,0,0,1), transform);
                     robot.GetComponent<Entity>().is_ally = true;
-                    /*if (game_manager.GetComponent<Game_manager>().attack_mode) {
+                    if (game_Manager.GetComponent<Game_manager>().attack_mode) {
                         robot.GetComponent<Robot>().is_at_war = true;
-                    }*/
+                    }
                     rings_status[y][i] = true;
                     broke = true;
-                    childCamera.GetComponent<Camera>().orthographicSize = y + 1 + 5;
+                    camera_size_goal = y + 1 + 5;
                     break ;
                 }
             }
@@ -179,7 +181,6 @@ public class Player : Entity
                 robot_list.Add(robot);
             }
         }
-        Debug.Log("List size : " + robot_list.Count.ToString());
         List<Robot>.Enumerator em = robot_list.GetEnumerator();
         em.MoveNext();
         for (var y=0; y < rings_status.Length; y ++) {
