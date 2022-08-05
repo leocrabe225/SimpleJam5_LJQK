@@ -64,6 +64,8 @@ public class Game_manager : MonoBehaviour
     private GameObject outpost_final_prefab;
     [SerializeField]
     private GameObject rocks_prefab;
+    [SerializeField]
+    private GameObject visual_zone_circle;
     public GameObject player;
     //[System.NonSerialized]
     public int scraps;
@@ -98,7 +100,10 @@ public class Game_manager : MonoBehaviour
 
     //Where the player spawns, no outposts
     void spawnZone1() {
-        //spawn fighter robots
+        GameObject circle = Instantiate(visual_zone_circle);
+        circle.transform.localScale = new Vector2(ZONE_1_SAFEZONE * 2, ZONE_1_SAFEZONE * 2);
+        circle = Instantiate(visual_zone_circle);
+        circle.transform.localScale = new Vector2(ZONE_1_RADIUS * 2, ZONE_1_RADIUS * 2);
         spawn_entities_in_circle(fighter_robot_prefab, ZONE_1_LVL1_ROBOTS, Vector2.zero, ZONE_1_SAFEZONE, ZONE_1_RADIUS, transform, false);
         //spawn dead machines
         spawn_entities_in_circle(dead_robot_prefab, ZONE_1_SCRAPS, Vector2.zero, 2f, ZONE_1_RADIUS, transform, true);
@@ -108,7 +113,8 @@ public class Game_manager : MonoBehaviour
 
     //Outpots lvl 1
     void spawnZone2() {
-        //spawn fighter robots
+        GameObject circle = Instantiate(visual_zone_circle);
+        circle.transform.localScale = new Vector2(ZONE_2_RADIUS * 2, ZONE_2_RADIUS * 2);
         spawn_entities_in_circle(fighter_robot_prefab, ZONE_2_LVL1_ROBOTS, Vector2.zero, ZONE_1_RADIUS, ZONE_2_RADIUS, transform, false);
         //spawn dead machines
         spawn_entities_in_circle(dead_robot_prefab, ZONE_2_SCRAPS, Vector2.zero, ZONE_1_RADIUS, ZONE_2_RADIUS, transform, true);
@@ -120,6 +126,8 @@ public class Game_manager : MonoBehaviour
 
     //Outpots lvl 2
     void spawnZone3() {
+        GameObject circle = Instantiate(visual_zone_circle);
+        circle.transform.localScale = new Vector2(ZONE_3_RADIUS * 2, ZONE_3_RADIUS * 2);
         spawn_entities_in_circle(fighter_robot_prefab, ZONE_3_LVL1_ROBOTS, Vector2.zero, ZONE_2_RADIUS, ZONE_3_RADIUS, transform, false);
         spawn_entities_in_circle(shooter_robot_prefab, ZONE_3_LVL2_ROBOTS, Vector2.zero, ZONE_2_RADIUS, ZONE_3_RADIUS, transform, false);
         //spawn dead machines
@@ -132,6 +140,8 @@ public class Game_manager : MonoBehaviour
 
     //Outpots lvl 3
     void spawnZone4() {
+        GameObject circle = Instantiate(visual_zone_circle);
+        circle.transform.localScale = new Vector2(ZONE_4_RADIUS * 2, ZONE_4_RADIUS * 2);
         spawn_entities_in_circle(fighter_robot_prefab, ZONE_4_LVL1_ROBOTS, Vector2.zero, ZONE_3_RADIUS, ZONE_4_RADIUS, transform, false);
         spawn_entities_in_circle(shooter_robot_prefab, ZONE_4_LVL2_ROBOTS, Vector2.zero, ZONE_3_RADIUS, ZONE_4_RADIUS, transform, false);
         spawn_entities_in_circle(explosive_robot_prefab, ZONE_4_LVL3_ROBOTS, Vector2.zero, ZONE_3_RADIUS, ZONE_4_RADIUS, transform, false);
@@ -145,6 +155,8 @@ public class Game_manager : MonoBehaviour
 
     /*Outpots lvl 4
     void spawnZone5() {
+        GameObject circle = Instantiate(visual_zone_circle);
+        circle.transform.localScale = new Vector2(ZONE_5_RADIUS * 2, ZONE_5_RADIUS * 2);
         spawn_entities_in_circle(fighter_robot_prefab, ??????????, Vector2.zero, ZONE_4_RADIUS, ZONE_5_RADIUS, transform, false);
         //spawn dead machines
         spawn_entities_in_circle(dead_robot_prefab, ZONE_5_SCRAPS, Vector2.zero, ZONE_4_RADIUS, ZONE_5_RADIUS, transform, true);
@@ -156,7 +168,6 @@ public class Game_manager : MonoBehaviour
 
     /*Boss zone
     void spawnZoneFinal() {
-        //spawn fighter robots
         spawn_entities_in_circle(fighter_robot_prefab, ??????????, Vector2.zero, ZONE_1_RADIUS, ZONE_2_RADIUS, transform, false);
         //spawn dead machines
         spawn_entities_in_circle(dead_robot_prefab, ??????????, Vector2.zero, ZONE_1_RADIUS, ZONE_2_RADIUS, transform, true);
@@ -209,7 +220,7 @@ public class Game_manager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E)) {
             if (remove_scraps(5)) {
-                GameObject robot = player.GetComponent<Player>().spawn_new_robot(fighter_robot_prefab);
+                GameObject robot = player.GetComponent<Player>().spawn_new_robot(shooter_robot_prefab);
             }
         }
         if (Input.GetKeyDown(KeyCode.Space)) {

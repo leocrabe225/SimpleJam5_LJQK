@@ -145,6 +145,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   sprite: {fileID: 5252129155238853238}
+  vision_range: 6
   robotSprites:
   - {fileID: 21300000, guid: 6f02f8ee1b6379245a91ee0bdcfc05d3, type: 3}
   - {fileID: 21300000, guid: 8b72af08aa40bc84e95936b800250728, type: 3}

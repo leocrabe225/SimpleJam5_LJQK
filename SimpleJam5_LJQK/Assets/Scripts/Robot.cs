@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Robot : Entity
+public abstract class Robot : Entity
 {
     [SerializeField]
     private GameObject dead_robot_prefab;
@@ -12,12 +12,14 @@ public class Robot : Entity
     private bool game_on = true;
     private bool regenerating = false;
     private float regen_speed;
-    private float speed = 5;
+    protected float speed = 5;
     public GameObject target = null;
     public bool is_at_war = false;
     public Vector3 defense_target;
     public LayerMask masktest;
     public GameObject sprite;
+    [SerializeField]
+    protected float vision_range;
     [SerializeField]
     List<Sprite> robotSprites;
 
@@ -61,14 +63,13 @@ public class Robot : Entity
         }
         if (is_at_war) {
             if (!(target == null)) {
-                Vector2 to_move = (target.transform.position - transform.position).normalized * speed * Time.deltaTime;
-                transform.Translate(to_move);
+                attack_target();
             }
             else {
                 RaycastHit2D[] results = new RaycastHit2D[10];
                 ContactFilter2D filter_test = new ContactFilter2D();
                 filter_test.SetLayerMask(masktest);
-                int amount = Physics2D.CircleCast(transform.position, 3, Vector2.zero, filter_test, results, 0);
+                int amount = Physics2D.CircleCast(transform.position, vision_range, Vector2.zero, filter_test, results, 0);
                 float closest = Mathf.Infinity;
                 if (amount > 0) {
                     for (var i = 0; i < amount; i++)
@@ -77,8 +78,13 @@ public class Robot : Entity
                         if (temp < closest) {
                             target = results[i].transform.gameObject;
                             closest = temp;
+                            
                         }
                     }
+                    transform.parent.GetComponent<Player>().new_target = target;
+                }
+                else {
+                    target = transform.parent.GetComponent<Player>().new_target;
                 }
             }
         }
@@ -93,6 +99,8 @@ public class Robot : Entity
             sprite.transform.rotation = transform.parent.GetComponent<Player>().sprite.transform.rotation;
         }
     }
+
+    protected abstract void attack_target();
 
     protected void Attack(Entity target)
     {

@@ -25,6 +25,10 @@ public class Player : Entity
     public GameObject childCamera;
     public GameObject game_Manager;
     private float camera_size_goal = 5;
+    private float detection_range = 3;
+
+    [System.NonSerialized]
+    public GameObject new_target;
 
 
     void Start()
@@ -131,7 +135,8 @@ public class Player : Entity
                         robot.GetComponent<Robot>().is_at_war = true;
                     }
                     rings_status[y][i] = true;
-                    camera_size_goal = y + 1 + 5;
+                    camera_size_goal = y * 1.5f + 2 + 5;
+                    detection_range = 5 + y * 0.5f;
                     broke = true;
                     break ;
                 }
@@ -158,7 +163,7 @@ public class Player : Entity
         RaycastHit2D[] results = new RaycastHit2D[200];
         ContactFilter2D filter_test = new ContactFilter2D();
         filter_test.SetLayerMask(masktest);
-        int amount = Physics2D.CircleCast(transform.position, farest_robot + 3, Vector2.zero, filter_test, results, 0);
+        int amount = Physics2D.CircleCast(transform.position, farest_robot + detection_range, Vector2.zero, filter_test, results, 0);
         if (amount > 0) {
             foreach(Transform child in transform)
             {

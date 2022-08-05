@@ -25,17 +25,14 @@ public class Outpost : Entity
     [SerializeField]
     Sprite allyOutpostSprite;
 
-
-    int initialchildNbr;
+    private int army_left;
     float time;
     // Start is called before the first frame update
     void Start()
     {
         gameManager = transform.parent.gameObject;
         gameManager.GetComponent<Game_manager>().spawn_entities_in_circle(robotToInstantiate, spawnAmount, transform.position, safeZone, totalRadius, transform, false);
-
-        int childNbr = transform.childCount;
-
+        army_left = spawnAmount;
     }
 
     // Update is called once per frame
@@ -53,9 +50,9 @@ public class Outpost : Entity
 
     public void FetchChildNbr()
     {
-        int childNbr = transform.childCount-1;
+        army_left--;
 
-        if (childNbr <=1)
+        if (army_left == 0)
         {
             is_ally = true;
             transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = allyOutpostSprite;

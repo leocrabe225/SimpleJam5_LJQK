@@ -57,6 +57,7 @@ MonoBehaviour:
   outpost_lvl4_prefab: {fileID: 3877964166094736254, guid: 90f2ea051067f8a43a540eb20f7e757c, type: 3}
   outpost_final_prefab: {fileID: 3877964166094736254, guid: d718c26492d7b2246b2256cb90b71040, type: 3}
   rocks_prefab: {fileID: 4190593938918603427, guid: bf4b757369cc05849a82e2ec01078c3e, type: 3}
+  visual_zone_circle: {fileID: 5818613420238039473, guid: 4889008fa178c33409968d70bb450d45, type: 3}
   player: {fileID: 0}
   scraps: 0
   scraps_text: {fileID: 0}
