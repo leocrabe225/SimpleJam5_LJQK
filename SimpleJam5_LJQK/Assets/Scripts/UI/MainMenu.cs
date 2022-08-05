@@ -9,7 +9,14 @@ public class MainMenu : MonoBehaviour
 
 
     public GameObject blackOutSquare;
-
+    [SerializeField]
+    GameObject AttackLogoParent;
+    [SerializeField]
+    Texture ActivatedAttack, DeactivatedAttack;
+    [SerializeField]
+    GameObject DefenseLogoParent;
+    [SerializeField]
+    Texture ActivatedDefense, DeactivatedDefense, ActivatedDrone, DeactivatedDrone;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +45,32 @@ public class MainMenu : MonoBehaviour
     {
         StartCoroutine(ChangeSceneFade(2));
     }
+
+    public void AttackMode()
+    {
+
+        AttackLogoParent.transform.GetChild(0).GetComponent<RawImage>().texture = ActivatedAttack;
+        DefenseLogoParent.transform.GetChild(0).GetComponent<RawImage>().texture = DeactivatedDefense;
+        DefenseLogoParent.transform.GetChild(2).GetComponent<RawImage>().texture = DeactivatedDrone;
+
+        DefenseLogoParent.transform.GetComponent<Image>().rectTransform.localScale = new Vector2(0.5f, 0.5f);
+        AttackLogoParent.transform.GetComponent<Image>().rectTransform.localScale = new Vector2(0.75f, 0.75f);
+    }
+
+    public void DefenseMode()
+    {
+        AttackLogoParent.transform.GetChild(0).GetComponent<RawImage>().texture = DeactivatedAttack;
+        DefenseLogoParent.transform.GetChild(0).GetComponent<RawImage>().texture = ActivatedDefense;
+        DefenseLogoParent.transform.GetChild(2).GetComponent<RawImage>().texture = ActivatedDrone;
+
+        DefenseLogoParent.transform.GetComponent<Image>().rectTransform.localScale = new Vector2(0.75f, 0.75f);
+        AttackLogoParent.transform.GetComponent<Image>().rectTransform.localScale = new Vector2(0.5f, 0.5f);
+
+    }
+
+
+
+
 
     public IEnumerator FadeBlackOutSquare (bool fadeToBlack = true, int fadeSpeed = 5)
     {
@@ -85,5 +118,7 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
         yield return null;
     }
+
+
 
 }
