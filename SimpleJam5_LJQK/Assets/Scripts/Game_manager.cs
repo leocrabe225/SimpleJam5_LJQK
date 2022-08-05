@@ -113,6 +113,7 @@ public class Game_manager : MonoBehaviour
                 if (player.GetComponent<Player>().order_attack()) {
                     attack_button.GetComponent<Image>().color = Color.green;
                     attack_button.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Fight mode on  (Space)";
+                    gameObject.GetComponent<MainMenu>().AttackMode();
                 }
                 else {
                     attack_mode = false;
@@ -122,6 +123,7 @@ public class Game_manager : MonoBehaviour
                 player.GetComponent<Player>().order_defense();
                 attack_button.GetComponent<Image>().color = Color.red;
                 attack_button.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Fight mode off (Space)";
+                gameObject.GetComponent<MainMenu>().DefenseMode();
             }
         }
         if (attack_mode) {

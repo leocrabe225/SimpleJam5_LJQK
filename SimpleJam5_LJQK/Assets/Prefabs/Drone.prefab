@@ -134,10 +134,10 @@ MonoBehaviour:
   player: {fileID: 3037428600940125618, guid: 6b2a8fd220dac4f468b3a0a2b26b8709, type: 3}
   gameManager: {fileID: 2523938719979929499, guid: c343a9360d3092e4b96addfb22d0ce80, type: 3}
   speed: 10
-  spawnAmount: 1
   robotToInstantiate: {fileID: 5252129155408306735, guid: 48c03906b9a67754786e6b91d3522b53, type: 3}
   safeZone: 0
   totalRadius: 0
+  is_at_war: 0
 --- !u!58 &5686742385055287364
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -165,7 +165,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e13b040a88455084eab3e4f7fd7e883c, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.32
   m_Pitch: 0.86
   Loop: 0
