@@ -41,15 +41,14 @@ public class Outpost : Entity
     // Update is called once per frame
     void Update()
     {
-        time += Time.deltaTime;
-
-        if (time >= deliveryCoolDown)
-        {
-            time = 0.0f;
-            Deliver();
-
+        if (is_ally) {
+            time += Time.deltaTime;
+            if (time >= deliveryCoolDown)
+            {
+                time = 0.0f;
+                Deliver();
+            }
         }
-
     }
 
     public void FetchChildNbr()
@@ -65,12 +64,8 @@ public class Outpost : Entity
 
     void Deliver()
     {
-        if (is_ally)
-        {
-            Instantiate(drone, transform);
-        }
+        GameObject temp = Instantiate(drone, transform);
+        temp.GetComponent<Drone>().is_at_war = transform.parent.GetComponent<Game_manager>().attack_mode;
     }
-
-    
 
 }

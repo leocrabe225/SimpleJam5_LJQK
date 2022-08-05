@@ -17,7 +17,8 @@ public class Drone : MonoBehaviour
     int safeZone;
     [SerializeField]
     int totalRadius;
-    // Start is called before the first frame update
+    public bool is_at_war;
+
     void Start()
     {
         //player = ;
@@ -25,19 +26,23 @@ public class Drone : MonoBehaviour
         player = gameManager.GetComponent<Game_manager>().player;
     }
 
-    // Update is called once per frame
     void Update()
     {
         //print(player.transform.position);
+        is_at_war = gameManager.GetComponent<Game_manager>().attack_mode;
         float step = speed * Time.deltaTime;
-        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, step);
+        if (is_at_war) {
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position - (player.transform.position - transform.position).normalized * 10, step);
+        }
+        else {
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, step);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            //gameManager.GetComponent<Game_manager>().spawn_entities_in_circle(robotToInstantiate, spawnAmount, transform.position, safeZone, totalRadius, player.transform, true);
             player.GetComponent<Player>().spawn_new_robot(robotToInstantiate);
             Destroy(gameObject);
         }

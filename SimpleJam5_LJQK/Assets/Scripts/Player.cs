@@ -119,6 +119,30 @@ public class Player : Entity
         }
     }
 
+    public GameObject spawn_new_robot(GameObject prefab) {
+        bool broke = false;
+        GameObject robot = null;
+        for (var y=0; y < rings_status.Length; y ++) {
+            for (var i=0; i < rings_status[y].Length; i++) {
+                if (!rings_status[y][i]){ 
+                    robot = Instantiate(prefab, (Vector3)rings_positions[y][i] + transform.position, new Quaternion(0,0,0,1), transform);
+                    robot.GetComponent<Entity>().is_ally = true;
+                    if (game_Manager.GetComponent<Game_manager>().attack_mode) {
+                        robot.GetComponent<Robot>().is_at_war = true;
+                    }
+                    rings_status[y][i] = true;
+                    camera_size_goal = y + 1 + 5;
+                    broke = true;
+                    break ;
+                }
+            }
+            if (broke) {
+                break;
+            }
+        }
+        return (robot);
+    }
+
     public bool order_attack() {
         var i = 0;
         float farest_robot = 0;
@@ -145,30 +169,6 @@ public class Player : Entity
             }
         }
         return (amount > 0); 
-    }
-
-    public GameObject spawn_new_robot(GameObject prefab) {
-        bool broke = false;
-        GameObject robot = null;
-        for (var y=0; y < rings_status.Length; y ++) {
-            for (var i=0; i < rings_status[y].Length; i++) {
-                if (!rings_status[y][i]){ 
-                    robot = Instantiate(prefab, (Vector3)rings_positions[y][i] + transform.position, new Quaternion(0,0,0,1), transform);
-                    robot.GetComponent<Entity>().is_ally = true;
-                    if (game_Manager.GetComponent<Game_manager>().attack_mode) {
-                        robot.GetComponent<Robot>().is_at_war = true;
-                    }
-                    rings_status[y][i] = true;
-                    broke = true;
-                    camera_size_goal = y + 1 + 5;
-                    break ;
-                }
-            }
-            if (broke) {
-                break;
-            }
-        }
-        return (robot);
     }
 
     public void order_defense() {
