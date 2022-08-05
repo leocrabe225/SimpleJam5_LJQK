@@ -41,7 +41,7 @@ public class Robot : Entity
     void Update()
     {
         attack_cooldown -= Time.deltaTime;
-        if (transform.parent.name == "Main Character(Clone)")
+        if (is_ally)
         {
             if (!regenerating && transform.parent.GetComponent<Player>().regen_on) {
                 regenerating = true;

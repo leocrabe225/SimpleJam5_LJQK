@@ -12,7 +12,7 @@ public class Drone : MonoBehaviour
     //[SerializeField]
     //int spawnAmount = 1;
     [SerializeField]
-    GameObject robotToInstantiate;
+    public GameObject robotToInstantiate;
     [SerializeField]
     int safeZone;
     [SerializeField]

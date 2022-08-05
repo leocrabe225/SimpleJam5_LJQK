@@ -51,7 +51,7 @@ MonoBehaviour:
   is_ally: 0
   is_immortal: 1
   gameManager: {fileID: 0}
-  robotToInstantiate: {fileID: 5252129155408306735, guid: 48c03906b9a67754786e6b91d3522b53, type: 3}
+  robotToInstantiate: {fileID: 5252129155408306735, guid: f5fc7de376d4ded49a9bf1d536fdf2d5, type: 3}
   drone: {fileID: 8814669674011071191, guid: 8bdced1501873324086c83001933cfbd, type: 3}
   spawnAmount: 12
   safeZone: 1

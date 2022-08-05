@@ -65,6 +65,7 @@ public class Outpost : Entity
     void Deliver()
     {
         GameObject temp = Instantiate(drone, transform);
+        temp.GetComponent<Drone>().robotToInstantiate = robotToInstantiate;
         temp.GetComponent<Drone>().is_at_war = transform.parent.GetComponent<Game_manager>().attack_mode;
     }
 

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5252129155238853239}
   - component: {fileID: 5252129155238853232}
   m_Layer: 0
-  m_Name: fighter_robot
+  m_Name: chasseNeige_robot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 5252129155238853238}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.084, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 1.7, y: 1.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5252129155408306731}
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 6002910794940547745}
   - component: {fileID: 1327251039697920259}
   m_Layer: 0
-  m_Name: ChasseNeige robot 1
+  m_Name: ChasseNeige robot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,6 +141,7 @@ MonoBehaviour:
   dead_robot_prefab: {fileID: 3777673230381507017, guid: f69958e461fd1d240843a56cdd173b73, type: 3}
   target: {fileID: 0}
   is_at_war: 0
+  defense_target: {x: 0, y: 0, z: 0}
   masktest:
     serializedVersion: 2
     m_Bits: 1024
@@ -5019,7 +5020,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0000009536743, y: -0.32401323}
+  m_Offset: {x: 0, y: -0.22}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -5030,7 +5031,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.0864048, y: 0.8457079}
+  m_Size: {x: 0.6, y: 0.48}
   m_EdgeRadius: 0
 --- !u!58 &1327251039697920259
 CircleCollider2D:
@@ -5045,6 +5046,6 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.001162529, y: 0.08640337}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.543746
+  m_Radius: 0.3
