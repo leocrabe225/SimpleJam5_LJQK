@@ -267,9 +267,7 @@ public class Game_manager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.E)) {
             if (remove_scraps(5)) {
-                for (var i=0; i < 100; i++) {
-                    GameObject robot = player.GetComponent<Player>().spawn_new_robot(shooter_robot_prefab);
-                }
+                GameObject robot = player.GetComponent<Player>().spawn_new_robot(fighter_robot_prefab);
             }
         }
         if (Input.GetKeyDown(KeyCode.Space)) {
