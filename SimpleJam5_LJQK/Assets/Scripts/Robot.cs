@@ -4,19 +4,23 @@ using UnityEngine;
 
 public abstract class Robot : Entity
 {
+    private float REGEN_TIME = 5;
     [SerializeField]
     private GameObject dead_robot_prefab;
+    [SerializeField]
     protected float damage;
+    [SerializeField]
+    protected float speed;
     protected float attack_cooldown;
     protected float cooldown_time;
-    private bool game_on = true;
     private bool regenerating = false;
     private float regen_speed;
-    protected float speed = 5;
+    
     public GameObject target = null;
     public bool is_at_war = false;
     public Vector3 defense_target;
-    public LayerMask masktest;
+    public int[] layers;
+
     public GameObject sprite;
     [SerializeField]
     protected float vision_range;
@@ -26,18 +30,21 @@ public abstract class Robot : Entity
 
     void Start()
     {
-        if (!is_ally) {
-            gameObject.layer = 10;
-            transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = robotSprites[1];
-        }
-        else {
-            defense_target = transform.localPosition;
-            transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = robotSprites[0];
-        }
+        gameObject.layer = layers[is_ally ? 1 : 0];
+        layers[0] = (int)Mathf.Pow(2, layers[0]);
+        layers[1] = (int)Mathf.Pow(2, layers[1]);
+        defense_target = transform.localPosition;
         health = max_health;
-        damage = 5;
         cooldown_time = 1;
         attack_cooldown = cooldown_time;
+        if (!is_ally) {
+            transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = robotSprites[1];
+            speed -= 1;
+            is_at_war = true;
+        }
+        else {
+            transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = robotSprites[0];
+        }
     }
 
     void Update()
@@ -47,7 +54,7 @@ public abstract class Robot : Entity
         {
             if (!regenerating && transform.parent.GetComponent<Player>().regen_on) {
                 regenerating = true;
-                regen_speed = (max_health - health) / 10;
+                regen_speed = (max_health - health) / REGEN_TIME;
             }
             else if (regenerating) {
                 if (!transform.parent.GetComponent<Player>().regen_on) {
@@ -63,12 +70,15 @@ public abstract class Robot : Entity
         }
         if (is_at_war) {
             if (!(target == null)) {
+                Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, target.transform.position - transform.position);
+                sprite.transform.rotation = Quaternion.RotateTowards(sprite.transform.rotation, toRotation, 360 * Time.deltaTime);
+                //sprite.transform.rotation = Quaternion.LookRotation(Vector3.forward, target.transform.position - transform.position);
                 attack_target();
             }
             else {
                 RaycastHit2D[] results = new RaycastHit2D[10];
                 ContactFilter2D filter_test = new ContactFilter2D();
-                filter_test.SetLayerMask(masktest);
+                filter_test.SetLayerMask(layers[is_ally ? 0 : 1] );//layers[is_ally ? 0 : 1]);
                 int amount = Physics2D.CircleCast(transform.position, vision_range, Vector2.zero, filter_test, results, 0);
                 float closest = Mathf.Infinity;
                 if (amount > 0) {
@@ -81,14 +91,30 @@ public abstract class Robot : Entity
                             
                         }
                     }
-                    transform.parent.GetComponent<Player>().new_target = target;
+                    if (is_ally) {
+                        transform.parent.GetComponent<Player>().new_target = target;
+                    }
                 }
                 else {
-                    target = transform.parent.GetComponent<Player>().new_target;
+                    if (is_ally) {
+                        target = transform.parent.GetComponent<Player>().new_target;
+                    }
+                    if (!target) {
+                        Vector2 to_move = (defense_target - transform.localPosition).normalized * speed * Time.deltaTime;
+                        if ((defense_target - transform.localPosition).magnitude > speed * Time.deltaTime) {
+                            transform.Translate(to_move);
+                        }
+                        else {
+                            transform.localPosition = defense_target;
+                        }
+                        if (is_ally) {
+                            sprite.transform.rotation = Quaternion.RotateTowards(sprite.transform.rotation, transform.parent.GetComponent<Player>().sprite.transform.rotation, 360 * Time.deltaTime);
+                        }
+                    }
                 }
             }
         }
-        else if (is_ally) {
+        else {
             Vector2 to_move = (defense_target - transform.localPosition).normalized * speed * Time.deltaTime;
             if ((defense_target - transform.localPosition).magnitude > speed * Time.deltaTime) {
                 transform.Translate(to_move);
@@ -96,7 +122,10 @@ public abstract class Robot : Entity
             else {
                 transform.localPosition = defense_target;
             }
-            sprite.transform.rotation = transform.parent.GetComponent<Player>().sprite.transform.rotation;
+            if (is_ally){
+                //sprite.transform.rotation = transform.parent.GetComponent<Player>().sprite.transform.rotation;
+                sprite.transform.rotation = Quaternion.RotateTowards(sprite.transform.rotation, transform.parent.GetComponent<Player>().sprite.transform.rotation, 360 * Time.deltaTime);
+            }
         }
     }
 
@@ -123,14 +152,8 @@ public abstract class Robot : Entity
     }
 
     private void OnDestroy() {
-        if (game_on) {
+        if (gameObject.scene.isLoaded) {
             Instantiate(dead_robot_prefab, transform.position, new Quaternion(0,0,0,1));
         }
     }
-
-    void OnApplicationQuit()
-    {
-        game_on = false;
-    }
-
 }

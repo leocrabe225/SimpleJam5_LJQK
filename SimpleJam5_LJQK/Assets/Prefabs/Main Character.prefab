@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2080602794314017364}
   - component: {fileID: 7981953799577569706}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -93,11 +93,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6070511114038195942}
-  - component: {fileID: 8003664729048462007}
   - component: {fileID: 2656224250208257991}
+  - component: {fileID: 8003664729048462007}
   - component: {fileID: 8088948379377644936}
   - component: {fileID: 6944539443621870194}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Main Character
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -121,27 +121,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &8003664729048462007
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3037428600940125618}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!114 &2656224250208257991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,6 +146,28 @@ MonoBehaviour:
   rotationSpeed: 360
   temp_ring: {fileID: 1360767009846662870, guid: 3a8d9e23d12fbbf4e8eaab13aa3b2c52, type: 3}
   childCamera: {fileID: 4329087118078291395}
+  game_Manager: {fileID: 0}
+--- !u!50 &8003664729048462007
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3037428600940125618}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 100
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!58 &8088948379377644936
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -290,7 +291,7 @@ GameObject:
   - component: {fileID: 464993900102070554}
   - component: {fileID: 1317526633132315713}
   - component: {fileID: 2086953986288250226}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}

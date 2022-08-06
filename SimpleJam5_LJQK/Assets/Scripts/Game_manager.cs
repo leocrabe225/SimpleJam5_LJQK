@@ -34,7 +34,7 @@ public class Game_manager : MonoBehaviour
 
 
 
-    float ZONE_1_SAFEZONE = 10;
+    float ZONE_1_SAFEZONE = 20;
     float ZONE_1_RADIUS = 50;
     float ZONE_2_RADIUS = 100;
     float ZONE_3_RADIUS = 200;
@@ -74,10 +74,18 @@ public class Game_manager : MonoBehaviour
     public bool attack_mode = false;
     [SerializeField]
     private Button craft_button;
+    public Slider healBarWhite;
+    public Slider healBarGreen;
+    public Slider HealthBar;
+    private GameObject[][] outposts_arrays;
+    private int game_progression = 0;
+    private Vector3 targetPosition;
+    public RectTransform pointerRectTransform;
     [SerializeField]
-    private Button attack_button;
+    private Sprite[] arrow_sprites;
 
-    public GameObject spawn_entities_in_circle(GameObject prefab, int amount, Vector2 start, float safezone, float radius, Transform parent, bool is_ally) {
+    public GameObject[] spawn_entities_in_circle(GameObject prefab, int amount, Vector2 start, float safezone, float radius, Transform parent, bool is_ally) {
+        GameObject[] ret_array = new GameObject[amount];
         GameObject temp_object = null;
         for (var i=0;i < amount;i++) {
             var x = Random.Range(0f, 1f);
@@ -93,9 +101,9 @@ public class Game_manager : MonoBehaviour
             temp_object = Instantiate(prefab, temp, new Quaternion(0,0,0,1), parent);
 
             temp_object.GetComponent<Entity>().is_ally = is_ally;
-            
+            ret_array[i] = temp_object;
         }
-        return (temp_object);
+        return (ret_array);
     }
 
     //Where the player spawns, no outposts
@@ -108,7 +116,7 @@ public class Game_manager : MonoBehaviour
         //spawn dead machines
         spawn_entities_in_circle(dead_robot_prefab, ZONE_1_SCRAPS, Vector2.zero, 2f, ZONE_1_RADIUS, transform, true);
         //spawn rocks
-        spawn_entities_in_circle(rocks_prefab, ZONE_1_ROCKS, Vector2.zero, 4f, ZONE_1_RADIUS, transform, false);
+        spawn_entities_in_circle(rocks_prefab, ZONE_1_ROCKS, Vector2.zero, 4f, ZONE_1_RADIUS, transform, true);
     }
 
     //Outpots lvl 1
@@ -119,9 +127,9 @@ public class Game_manager : MonoBehaviour
         //spawn dead machines
         spawn_entities_in_circle(dead_robot_prefab, ZONE_2_SCRAPS, Vector2.zero, ZONE_1_RADIUS, ZONE_2_RADIUS, transform, true);
         //spawn outposts
-        spawn_entities_in_circle(outpost_lvl1_prefab, ZONE_2_LVL1_OUTPOSTS , Vector2.zero, ZONE_1_RADIUS, ZONE_2_RADIUS, transform, false);
+        outposts_arrays[0] = spawn_entities_in_circle(outpost_lvl1_prefab, ZONE_2_LVL1_OUTPOSTS , Vector2.zero, ZONE_1_RADIUS, ZONE_2_RADIUS, transform, false);
         //spawn rocks
-        spawn_entities_in_circle(rocks_prefab, ZONE_2_ROCKS, Vector2.zero, ZONE_1_RADIUS, ZONE_2_RADIUS, transform, false);
+        spawn_entities_in_circle(rocks_prefab, ZONE_2_ROCKS, Vector2.zero, ZONE_1_RADIUS, ZONE_2_RADIUS, transform, true);
     }
 
     //Outpots lvl 2
@@ -133,9 +141,9 @@ public class Game_manager : MonoBehaviour
         //spawn dead machines
         spawn_entities_in_circle(dead_robot_prefab, ZONE_3_SCRAPS, Vector2.zero, ZONE_2_RADIUS, ZONE_3_RADIUS, transform, true);
         //spawn outposts
-        spawn_entities_in_circle(outpost_lvl2_prefab, ZONE_3_LVL2_OUTPOSTS , Vector2.zero, ZONE_2_RADIUS, ZONE_3_RADIUS, transform, false);
+        outposts_arrays[1] = spawn_entities_in_circle(outpost_lvl2_prefab, ZONE_3_LVL2_OUTPOSTS , Vector2.zero, ZONE_2_RADIUS, ZONE_3_RADIUS, transform, false);
         //spawn rocks
-        spawn_entities_in_circle(rocks_prefab, ZONE_3_ROCKS, Vector2.zero, ZONE_2_RADIUS, ZONE_3_RADIUS, transform, false);
+        spawn_entities_in_circle(rocks_prefab, ZONE_3_ROCKS, Vector2.zero, ZONE_2_RADIUS, ZONE_3_RADIUS, transform, true);
     }
 
     //Outpots lvl 3
@@ -148,9 +156,9 @@ public class Game_manager : MonoBehaviour
         //spawn dead machines
         spawn_entities_in_circle(dead_robot_prefab, ZONE_4_SCRAPS, Vector2.zero, ZONE_3_RADIUS, ZONE_4_RADIUS, transform, true);
         //spawn outposts
-        spawn_entities_in_circle(outpost_lvl3_prefab, ZONE_4_LVL3_OUTPOSTS , Vector2.zero, ZONE_3_RADIUS, ZONE_4_RADIUS, transform, false);
+        outposts_arrays[2] = spawn_entities_in_circle(outpost_lvl3_prefab, ZONE_4_LVL3_OUTPOSTS , Vector2.zero, ZONE_3_RADIUS, ZONE_4_RADIUS, transform, false);
         //spawn rocks
-        spawn_entities_in_circle(rocks_prefab, ZONE_4_ROCKS, Vector2.zero, ZONE_3_RADIUS, ZONE_4_RADIUS, transform, false);
+        spawn_entities_in_circle(rocks_prefab, ZONE_4_ROCKS, Vector2.zero, ZONE_3_RADIUS, ZONE_4_RADIUS, transform, true);
     }
 
     /*Outpots lvl 4
@@ -166,16 +174,26 @@ public class Game_manager : MonoBehaviour
         spawn_entities_in_circle(rocks_prefab, ZONE_5_ROCKS, Vector2.zero, ZONE_4_RADIUS, ZONE_5_RADIUS, transform, false);
     }*/
 
-    /*Boss zone
+    //Boss zone
     void spawnZoneFinal() {
-        spawn_entities_in_circle(fighter_robot_prefab, ??????????, Vector2.zero, ZONE_1_RADIUS, ZONE_2_RADIUS, transform, false);
+        GameObject[] boss_array = new GameObject[1];
+        boss_array[0] = Instantiate(outpost_final_prefab, new Vector2(0, 500), Quaternion.identity, transform);
+        outposts_arrays[3] = boss_array;
+       /* spawn_entities_in_circle(fighter_robot_prefab, ??????????, Vector2.zero, ZONE_1_RADIUS, ZONE_2_RADIUS, transform, false);
         //spawn dead machines
         spawn_entities_in_circle(dead_robot_prefab, ??????????, Vector2.zero, ZONE_1_RADIUS, ZONE_2_RADIUS, transform, true);
         //spawn outposts
         spawn_entities_in_circle(outpost_final_prefab, 20 , Vector2.zero, ZONE_1_RADIUS, ZONE_2_RADIUS, transform, false);
         //spawn rocks
-        spawn_entities_in_circle(rocks_prefab, 30, Vector2.zero, ZONE_1_RADIUS, ZONE_2_RADIUS, transform, false);
-    }*/
+        spawn_entities_in_circle(rocks_prefab, 30, Vector2.zero, ZONE_1_RADIUS, ZONE_2_RADIUS, transform, false);*/
+    }
+
+    public void acknowledge_outpost_death(int new_game_progression) {
+        if (game_progression < new_game_progression) {
+            game_progression = new_game_progression;
+            pointerRectTransform.transform.GetComponent<Image>().sprite = arrow_sprites[game_progression];
+        }
+    }
 
     public void add_scraps(int amount) {
         scraps += amount;
@@ -208,37 +226,60 @@ public class Game_manager : MonoBehaviour
         scraps = 0;
         player = Instantiate(player_prefab);
         player.GetComponent<Player>().game_Manager = gameObject;
+        outposts_arrays =  new GameObject[5][];
         spawnZone1();
         spawnZone2();
         spawnZone3();
         spawnZone4();
         //spawnZone5();
-        //spawnZoneFinal();
+        spawnZoneFinal();
+        gameObject.GetComponent<MainMenu>().DefenseMode();
     }
 
     void Update()
     {
+        {//point and move arrow
+            targetPosition = player.GetComponent<Player>().get_closest_object(outposts_arrays[game_progression]).transform.position;
+            Vector3 fromPosition = Camera.main.transform.position;
+            fromPosition.z = 0;
+            Vector3 dir = (targetPosition - fromPosition).normalized;
+            float angle = Vector3.Angle(Vector3.up, dir);
+            if (dir.x > 0.0f) angle = -angle + 360;
+            pointerRectTransform.localEulerAngles = new Vector3(0, 0, angle);
+
+            Vector3 targetPositionScreenPoint = Camera.main.WorldToScreenPoint(targetPosition);
+            float borderSize = 25f;
+
+            Vector3 cappedTargetScreenPosition = targetPositionScreenPoint;
+            if (cappedTargetScreenPosition.x <= borderSize) {
+                cappedTargetScreenPosition.x = borderSize;
+            }
+            if (cappedTargetScreenPosition.y <= borderSize) {
+                cappedTargetScreenPosition.y = borderSize;
+            }
+            if (cappedTargetScreenPosition.x >= Screen.width - borderSize) {
+                cappedTargetScreenPosition.x = Screen.width - borderSize;
+            }
+            if (cappedTargetScreenPosition.y >= Screen.height - borderSize) {
+                cappedTargetScreenPosition.y = Screen.height - borderSize;
+            }
+            pointerRectTransform.position = cappedTargetScreenPosition;
+        }
         if (Input.GetKeyDown(KeyCode.E)) {
             if (remove_scraps(5)) {
-                GameObject robot = player.GetComponent<Player>().spawn_new_robot(shooter_robot_prefab);
+                for (var i=0; i < 100; i++) {
+                    GameObject robot = player.GetComponent<Player>().spawn_new_robot(shooter_robot_prefab);
+                }
             }
         }
         if (Input.GetKeyDown(KeyCode.Space)) {
             attack_mode = !attack_mode;
             if (attack_mode) {
-                if (player.GetComponent<Player>().order_attack()) {
-                    attack_button.GetComponent<Image>().color = Color.green;
-                    attack_button.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Fight mode on  (Space)";
-                    gameObject.GetComponent<MainMenu>().AttackMode();
-                }
-                else {
-                    attack_mode = false;
-                }
+                player.GetComponent<Player>().order_attack();
+                gameObject.GetComponent<MainMenu>().AttackMode();
             }
             else {
                 player.GetComponent<Player>().order_defense();
-                attack_button.GetComponent<Image>().color = Color.red;
-                attack_button.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Fight mode off (Space)";
                 gameObject.GetComponent<MainMenu>().DefenseMode();
             }
         }

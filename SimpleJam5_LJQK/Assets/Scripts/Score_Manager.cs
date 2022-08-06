@@ -7,11 +7,8 @@ using TMPro;
 
 public class Score_Manager : MonoBehaviour
 {
-    int durationScore;
-    int highScore;
-
     bool stopwatchActive = false;
-    float currentTime;
+    public float currentTime;
 
     public TextMeshProUGUI currentTimeText;
 
@@ -43,22 +40,4 @@ public class Score_Manager : MonoBehaviour
     {
         stopwatchActive = false;
     }
-
-
-    //Save Score
-    void OnEnable() 
-    {
-        highScore = PlayerPrefs.GetInt("score");
-    }
-
-    void OnDisable()
-    {
-        if(durationScore > highScore)
-        {
-            PlayerPrefs.SetInt("score", durationScore);
-        }
-    }
-
-    //Save Score End
-
 }

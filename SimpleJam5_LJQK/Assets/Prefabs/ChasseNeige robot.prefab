@@ -139,13 +139,14 @@ MonoBehaviour:
   is_ally: 0
   is_immortal: 0
   dead_robot_prefab: {fileID: 3777673230381507017, guid: f69958e461fd1d240843a56cdd173b73, type: 3}
+  damage: 0
+  speed: 0
   target: {fileID: 0}
   is_at_war: 0
   defense_target: {x: 0, y: 0, z: 0}
-  masktest:
-    serializedVersion: 2
-    m_Bits: 1024
+  layers: 0a00000009000000
   sprite: {fileID: 5252129155238853238}
+  vision_range: 0
   robotSprites:
   - {fileID: 21300000, guid: 8d9036bc6944d2245a1f8d68dafba1f8, type: 3}
   - {fileID: 21300000, guid: e74af5c9c0823574da20a4914b8b44bd, type: 3}

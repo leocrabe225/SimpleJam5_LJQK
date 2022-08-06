@@ -9,7 +9,7 @@ public class Outpost : Entity
 
 
     [SerializeField]
-    GameObject gameManager;
+    protected GameObject gameManager;
     [SerializeField]
     GameObject robotToInstantiate;
     [SerializeField]
@@ -17,20 +17,28 @@ public class Outpost : Entity
     [SerializeField]
     int spawnAmount;
     [SerializeField]
-    int safeZone;
+    protected int safeZone;
     [SerializeField]
     int totalRadius;
     [SerializeField]
     float deliveryCoolDown;
     [SerializeField]
-    Sprite allyOutpostSprite;
+    protected Sprite allyOutpostSprite;
+    [SerializeField]
+    private int game_progression;
 
-    private int army_left;
+    protected  int army_left;
     float time;
+    public bool boss_reached = false;
     // Start is called before the first frame update
     void Start()
     {
-        gameManager = transform.parent.gameObject;
+        if (transform.parent.GetComponent<Boss_outpost>()) {
+            gameManager = transform.parent.GetComponent<Boss_outpost>().gameManager;
+        }
+        else {
+            gameManager = transform.parent.gameObject;
+        }
         gameManager.GetComponent<Game_manager>().spawn_entities_in_circle(robotToInstantiate, spawnAmount, transform.position, safeZone, totalRadius, transform, false);
         army_left = spawnAmount;
     }
@@ -43,19 +51,27 @@ public class Outpost : Entity
             if (time >= deliveryCoolDown)
             {
                 time = 0.0f;
-                Deliver();
+                if (!boss_reached) {
+                    Deliver();
+                }
             }
         }
     }
 
-    public void FetchChildNbr()
+    public virtual void FetchChildNbr()
     {
         army_left--;
 
         if (army_left == 0)
-        {
-            is_ally = true;
-            transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = allyOutpostSprite;
+        {   
+            if (transform.parent.GetComponent<Boss_outpost>()) {
+                Destroy(gameObject);
+            }
+            else {
+                transform.parent.GetComponent<Game_manager>().acknowledge_outpost_death(game_progression);
+                is_ally = true;
+                transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = allyOutpostSprite;
+            }
         }
     }
 
@@ -66,4 +82,9 @@ public class Outpost : Entity
         temp.GetComponent<Drone>().is_at_war = transform.parent.GetComponent<Game_manager>().attack_mode;
     }
 
+    void OnDestroy() {
+        if (gameObject.scene.isLoaded && transform.parent.GetComponent<Boss_outpost>()) {
+            transform.parent.GetComponent<Boss_outpost>().FetchChildNbr();
+        }
+    }
 }

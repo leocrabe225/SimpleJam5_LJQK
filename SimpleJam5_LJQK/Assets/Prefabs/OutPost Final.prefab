@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4146381865543209542}
-  - component: {fileID: 4533746208535219492}
+  - component: {fileID: -9043128869351227313}
   - component: {fileID: 7046394544849945725}
   m_Layer: 0
   m_Name: OutPost Final
@@ -34,7 +34,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4533746208535219492
+--- !u!114 &-9043128869351227313
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,7 +43,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3877964166094736254}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffa4ced9311b35145aa2af3c309b67fe, type: 3}
+  m_Script: {fileID: 11500000, guid: 179ecd15b0cc8674e8bb88229e6ba242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
@@ -51,13 +51,19 @@ MonoBehaviour:
   is_ally: 0
   is_immortal: 1
   gameManager: {fileID: 0}
-  robotToInstantiate: {fileID: 5252129155408306735, guid: 48c03906b9a67754786e6b91d3522b53, type: 3}
-  drone: {fileID: 8814669674011071191, guid: 8bdced1501873324086c83001933cfbd, type: 3}
-  spawnAmount: 12
-  safeZone: 1
-  totalRadius: 10
-  deliveryCoolDown: 10
-  allyOutpostSprite: {fileID: 21300000, guid: 5a250125e8c30424bad1935a7673dcdc, type: 3}
+  robotToInstantiate: {fileID: 0}
+  drone: {fileID: 0}
+  spawnAmount: 0
+  safeZone: 20
+  totalRadius: 30
+  deliveryCoolDown: 0
+  allyOutpostSprite: {fileID: 21300000, guid: eb13b3d02b429d648a66d657f1400c9c, type: 3}
+  game_progression: 5
+  boss_reached: 0
+  outpost_array:
+  - {fileID: 3877964166094736254, guid: 21ff2ee89f69d7d48b6a294fb7486f59, type: 3}
+  - {fileID: 3877964166094736254, guid: e45731823145b7d44ba22fcce5aa8ed4, type: 3}
+  - {fileID: 3877964166094736254, guid: e795bdbd7e597a3499790101a4a07092, type: 3}
 --- !u!61 &7046394544849945725
 BoxCollider2D:
   m_ObjectHideFlags: 0

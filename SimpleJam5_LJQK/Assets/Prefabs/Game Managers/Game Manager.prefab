@@ -63,7 +63,16 @@ MonoBehaviour:
   scraps_text: {fileID: 0}
   attack_mode: 0
   craft_button: {fileID: 0}
-  attack_button: {fileID: 0}
+  healBarWhite: {fileID: 0}
+  healBarGreen: {fileID: 0}
+  HealthBar: {fileID: 0}
+  pointerRectTransform: {fileID: 0}
+  arrow_sprites:
+  - {fileID: 21300000, guid: da31cc2a415c42940b25c712ee33d519, type: 3}
+  - {fileID: 21300000, guid: 5657110315c0c3a4c86fa047f3316171, type: 3}
+  - {fileID: 21300000, guid: 721295dcea9fe9843b6787a343ca6347, type: 3}
+  - {fileID: 21300000, guid: 05b52d960418049439b0c81df5dc3e5b, type: 3}
+  - {fileID: 21300000, guid: 05b52d960418049439b0c81df5dc3e5b, type: 3}
 --- !u!114 &4136467680125479545
 MonoBehaviour:
   m_ObjectHideFlags: 0

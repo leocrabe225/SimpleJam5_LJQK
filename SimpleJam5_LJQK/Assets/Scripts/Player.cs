@@ -5,8 +5,8 @@ using UnityEngine;
 public class Player : Entity
 {
     // Start is called before the first frame update
-    private float TIME_TO_START_REGEN = 10;
-    private float REGEN_TIME = 10;
+    private float TIME_TO_START_REGEN = 5;
+    private float REGEN_TIME = 5;
 
     bool isAlive = true;
     private float speed = 5;
@@ -25,7 +25,6 @@ public class Player : Entity
     public GameObject childCamera;
     public GameObject game_Manager;
     private float camera_size_goal = 5;
-    private float detection_range = 3;
 
     [System.NonSerialized]
     public GameObject new_target;
@@ -33,7 +32,7 @@ public class Player : Entity
 
     void Start()
     {
-        health = max_health;
+        health = 1;
         is_ally = true;
         generate_rings(1, 2);
     }
@@ -43,6 +42,9 @@ public class Player : Entity
     {
         if (isAlive)
         {
+            game_Manager.GetComponent<Game_manager>().HealthBar.value = health / max_health;
+            game_Manager.GetComponent<Game_manager>().healBarWhite.value = time_no_fight / TIME_TO_START_REGEN;
+            game_Manager.GetComponent<Game_manager>().healBarGreen.value = (time_no_fight - TIME_TO_START_REGEN) / REGEN_TIME;
             Vector2 to_move = Vector2.zero;
             if (Input.GetKey(KeyCode.W))
             {
@@ -68,7 +70,6 @@ public class Player : Entity
                 Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, to_move);
                 sprite.transform.rotation = Quaternion.RotateTowards(sprite.transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
             }
-            //Uncomment when aggro system is done
             time_no_fight += Time.deltaTime;
             if (time_no_fight > TIME_TO_START_REGEN)
             {
@@ -92,6 +93,9 @@ public class Player : Entity
             if (regen_on)
             {
                 health += regen_speed * Time.deltaTime;
+                if (health > max_health) {
+                    health = max_health;
+                }
             }
             if (Mathf.Abs(camera_size_goal - childCamera.GetComponent<Camera>().orthographicSize) < 0.001){
                 childCamera.GetComponent<Camera>().orthographicSize = camera_size_goal;
@@ -136,7 +140,6 @@ public class Player : Entity
                     }
                     rings_status[y][i] = true;
                     camera_size_goal = y * 1.5f + 2 + 5;
-                    detection_range = 5 + y * 0.5f;
                     broke = true;
                     break ;
                 }
@@ -149,28 +152,17 @@ public class Player : Entity
     }
 
     public bool order_attack() {
-        var i = 0;
-        float farest_robot = 0;
-        foreach(Transform child in transform)
-        {
-            if (child.GetComponent<Robot>()) {
-                if (child.localPosition.magnitude > farest_robot) {
-                    farest_robot = child.localPosition.magnitude;
-                }
-                i++;
-            }
-        }
         RaycastHit2D[] results = new RaycastHit2D[200];
         ContactFilter2D filter_test = new ContactFilter2D();
         filter_test.SetLayerMask(masktest);
-        int amount = Physics2D.CircleCast(transform.position, farest_robot + detection_range, Vector2.zero, filter_test, results, 0);
-        if (amount > 0) {
-            foreach(Transform child in transform)
-            {
-                if (child.GetComponent<Robot>()) {
+        int amount = Physics2D.CircleCast(transform.position, camera_size_goal, Vector2.zero, filter_test, results, 0);
+        foreach(Transform child in transform)
+        {
+            if (child.GetComponent<Robot>()) {
+                if (amount > 0) {
                     child.GetComponent<Robot>().target = results[Random.Range(0, amount)].transform.gameObject;
-                    child.GetComponent<Robot>().is_at_war = true;
                 }
+                child.GetComponent<Robot>().is_at_war = true;
             }
         }
         return (amount > 0); 
@@ -203,15 +195,27 @@ public class Player : Entity
         }
     }
 
+    public GameObject get_closest_object(GameObject[] object_array) {
+        float closest = Mathf.Infinity;
+        GameObject closest_object = null;
+        foreach (GameObject object_to_check in object_array) {
+            float object_distance = (object_to_check.transform.position - transform.position).magnitude;
+            if (object_distance < closest) {
+                closest_object = object_to_check;
+                closest = object_distance;
+            }
+        }
+        return(closest_object);
+    }
+
     public override void removeHealth(float amount)
     {
+        time_no_fight = 0;
         health -= amount;
-        Debug.Log("Taken " + amount.ToString() + " damage, " + health.ToString() + "hp left");
         if (health <= 0 && !is_immortal)
         {
             isAlive = false;
             game_Manager.GetComponent<MainMenu>().Death();
-            
         }
     }
 }

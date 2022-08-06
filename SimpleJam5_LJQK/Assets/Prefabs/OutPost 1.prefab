@@ -55,10 +55,11 @@ MonoBehaviour:
   robotToInstantiate: {fileID: 5252129155408306735, guid: 713846f0f733dfc45a5850e0e84478db, type: 3}
   drone: {fileID: 8814669674011071191, guid: 8bdced1501873324086c83001933cfbd, type: 3}
   spawnAmount: 12
-  safeZone: 1
+  safeZone: 5
   totalRadius: 10
   deliveryCoolDown: 10
   allyOutpostSprite: {fileID: 21300000, guid: e7bf5a43034e0ad46a081e36af3babbb, type: 3}
+  game_progression: 2
 --- !u!61 &1753246834268015345
 BoxCollider2D:
   m_ObjectHideFlags: 0
